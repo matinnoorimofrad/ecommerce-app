@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  READY
+  CANCELED
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  firstName String @db.VarChar(30) @map("first_name")
+  lastName String @db.VarChar(30) @map("last_name")
+  email String @unique
+  password String
+  role UserRole @default(USER)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  orders Order[]
+  cartItems CartItem[]
+
+  @@map("users")
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  status OrderStatus @default(PENDING)
+  price Decimal @db.Decimal(10,2)
+  address String @default("")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  userID Int @map("user_id")
+  user User @relation(fields: [userID],references: [id])
+
+  orderItems OrderItem[]
+
+  @@map("orders")
+}
+
+model CartItem {
+  id Int @id @default(autoincrement())
+  quantity Int @default(1)
+  price Decimal @db.Decimal(10,2)
+
+  userID Int @map("user_id")
+  user User @relation(fields: [userID],references: [id])
+
+  consoleID Int? @map("console_id")
+  console Console? @relation(fields: [consoleID],references: [id])
+
+  gameID Int? @map("game_id")
+  game Game? @relation(fields: [gameID],references: [id])
+
+  @@map("cart_items")
+
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  quantity Int @default(1)
+  price Decimal @db.Decimal(10,2)
+
+  orderID Int @map("order_id")
+  order Order @relation(fields: [orderID],references: [id])
+
+  consoleID Int? @map("console_id")
+  console Console? @relation(fields: [consoleID],references: [id])
+
+  gameID Int? @map("game_id")
+  game Game? @relation(fields: [gameID],references: [id])
+
+  @@map("order_items")    
+}
+
+model Category {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(60) @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  consoles Console[]
+  games Game[]
+
+  @@map("categories")
+}
+
+model Console {
+  id Int @id @default(autoincrement())
+  brand String @db.VarChar(30)
+  model String @db.VarChar(60)
+  storage String @db.VarChar(30)
+  cpu String? @db.VarChar(30)
+  gpu String? @db.VarChar(30)
+  ram String? @db.VarChar(30)
+  resolution String? @db.VarChar(30)
+  price Decimal @db.Decimal(10,2)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  categoryID Int @map("category_id")
+  category Category @relation(fields: [categoryID],references: [id])
+
+  cartItems CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([model,storage])
+  @@map("consoles")
+}
+
+model Game {
+  id Int @id @default(autoincrement())
+  name String @unique
+  platform String @db.VarChar(60)
+  price Decimal @db.Decimal(10,2)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at") 
+
+  categoryID Int @map("category_id")
+  category Category @relation(fields: [categoryID],references: [id])
+
+  cartItems CartItem[]
+  orderItems OrderItem[]
+
+  @@unique([name,platform])
+  @@map("games") 
+}
