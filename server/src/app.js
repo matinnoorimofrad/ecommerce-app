@@ -6,7 +6,7 @@ const {
     categoryRouter,
     consoleRouter,
     gameRouter
-} = require('./routers/product.router');
+} = require('./routers/products.router');
 
 const app = express();
 

@@ -1,11 +1,9 @@
-const { PrismaClient } = require('../../prisma/generated/client');
-const prisma = new PrismaClient();
+const prisma = require('../prismaClient');
 
 const modelFields = {
     category: ["name"],
     console: ["brand","model","storage","price"],
     game: ["name","platform","price"],
-    user: ["firstName","lastName","email","password"]
 }
 
 async function getAllRecords(model) {
@@ -40,7 +38,7 @@ async function filterByBrand(brand) {
 
 async function filterByPlatform(platform) {
     return await prisma.game.findMany({
-        where: {name:{
+        where: {platform:{
             contains: platform,
             mode: "insensitive"
         }}

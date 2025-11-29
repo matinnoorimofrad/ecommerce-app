@@ -6,7 +6,7 @@ const {
     brandFilter,
     platformFilter,
     priceFilter,
-} = require('../controllers/product.controller');
+} = require('../controllers/products.controller');
 
 const express = require('express');
 
@@ -21,8 +21,8 @@ categoryRouter.patch('/update/:id',updateOneRecord);
 
 consoleRouter.get('/all',showAllRecords);
 consoleRouter.post('/add',addNewRecord);
-consoleRouter.post('/brandFlter',brandFilter);
-consoleRouter.post('/priceFlter',priceFilter);
+consoleRouter.post('/brandFilter',brandFilter);
+consoleRouter.post('/priceFilter',priceFilter);
 consoleRouter.delete('/remove/:id',deleteRecord);
 consoleRouter.patch('/update/:id',updateOneRecord);
 

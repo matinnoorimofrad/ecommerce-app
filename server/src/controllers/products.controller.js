@@ -29,7 +29,7 @@ async function addNewRecord(req,res) {
             return res.status(422).json({error: `${field} is required`});
         }
     }
-    if(model==="category" || model==="user") {
+    if(model==="category") {
         try {
             return res.status(201).json(await saveRecord(model,input));
         } catch(err) {
