@@ -67,6 +67,8 @@ async function validateToken(req,res,next) {
             req.user = decoded;
             next();
         });
+    } else {
+        return res.status(500).json({error: "no authorization header was found"});
     };
 };
 

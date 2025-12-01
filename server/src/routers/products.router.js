@@ -10,9 +10,15 @@ const {
 
 const express = require('express');
 
+const { validateToken } = require('../controllers/users.controller');
+
 const categoryRouter = express.Router();
 const consoleRouter = express.Router();
 const gameRouter = express.Router();
+
+categoryRouter.use(validateToken);
+consoleRouter.use(validateToken);
+gameRouter.use(validateToken);
 
 categoryRouter.get('/all',showAllRecords);
 categoryRouter.post('/add',addNewRecord);

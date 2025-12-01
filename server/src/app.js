@@ -7,6 +7,7 @@ const {
     consoleRouter,
     gameRouter
 } = require('./routers/products.router');
+const userRouter = require('./routers/users.router');
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.use('/category',categoryRouter);
 app.use('/console',consoleRouter);
 app.use('/game',gameRouter);
+
+app.use('/user',userRouter);
 
 
 module.exports = app;
