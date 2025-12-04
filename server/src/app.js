@@ -20,7 +20,11 @@ app.use('/category',categoryRouter);
 app.use('/console',consoleRouter);
 app.use('/game',gameRouter);
 
+app.use('/cart',cartRouter);
+
 app.use('/user',userRouter);
+
+
 
 
 module.exports = app;

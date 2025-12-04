@@ -39,6 +39,11 @@ export type OrderItem = $Result.DefaultSelection<Prisma.$OrderItemPayload>
  */
 export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
 /**
+ * Model Product
+ * 
+ */
+export type Product = $Result.DefaultSelection<Prisma.$ProductPayload>
+/**
  * Model Console
  * 
  */
@@ -246,6 +251,16 @@ export class PrismaClient<
     * ```
     */
   get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.product`: Exposes CRUD operations for the **Product** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Products
+    * const products = await prisma.product.findMany()
+    * ```
+    */
+  get product(): Prisma.ProductDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.console`: Exposes CRUD operations for the **Console** model.
@@ -712,6 +727,7 @@ export namespace Prisma {
     CartItem: 'CartItem',
     OrderItem: 'OrderItem',
     Category: 'Category',
+    Product: 'Product',
     Console: 'Console',
     Game: 'Game'
   };
@@ -732,7 +748,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "order" | "cartItem" | "orderItem" | "category" | "console" | "game"
+      modelProps: "user" | "order" | "cartItem" | "orderItem" | "category" | "product" | "console" | "game"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1106,6 +1122,80 @@ export namespace Prisma {
           }
         }
       }
+      Product: {
+        payload: Prisma.$ProductPayload<ExtArgs>
+        fields: Prisma.ProductFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProductFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProductFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          findFirst: {
+            args: Prisma.ProductFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProductFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          findMany: {
+            args: Prisma.ProductFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>[]
+          }
+          create: {
+            args: Prisma.ProductCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          createMany: {
+            args: Prisma.ProductCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProductCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>[]
+          }
+          delete: {
+            args: Prisma.ProductDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          update: {
+            args: Prisma.ProductUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProductDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProductUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProductUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProductUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProductPayload>
+          }
+          aggregate: {
+            args: Prisma.ProductAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProduct>
+          }
+          groupBy: {
+            args: Prisma.ProductGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProductGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProductCountArgs<ExtArgs>
+            result: $Utils.Optional<ProductCountAggregateOutputType> | number
+          }
+        }
+      }
       Console: {
         payload: Prisma.$ConsolePayload<ExtArgs>
         fields: Prisma.ConsoleFieldRefs
@@ -1355,6 +1445,7 @@ export namespace Prisma {
     cartItem?: CartItemOmit
     orderItem?: OrderItemOmit
     category?: CategoryOmit
+    product?: ProductOmit
     console?: ConsoleOmit
     game?: GameOmit
   }
@@ -1508,13 +1599,11 @@ export namespace Prisma {
    */
 
   export type CategoryCountOutputType = {
-    consoles: number
-    games: number
+    products: number
   }
 
   export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    consoles?: boolean | CategoryCountOutputTypeCountConsolesArgs
-    games?: boolean | CategoryCountOutputTypeCountGamesArgs
+    products?: boolean | CategoryCountOutputTypeCountProductsArgs
   }
 
   // Custom InputTypes
@@ -1531,94 +1620,47 @@ export namespace Prisma {
   /**
    * CategoryCountOutputType without action
    */
-  export type CategoryCountOutputTypeCountConsolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ConsoleWhereInput
-  }
-
-  /**
-   * CategoryCountOutputType without action
-   */
-  export type CategoryCountOutputTypeCountGamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: GameWhereInput
+  export type CategoryCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
   }
 
 
   /**
-   * Count Type ConsoleCountOutputType
+   * Count Type ProductCountOutputType
    */
 
-  export type ConsoleCountOutputType = {
+  export type ProductCountOutputType = {
     cartItems: number
     orderItems: number
   }
 
-  export type ConsoleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cartItems?: boolean | ConsoleCountOutputTypeCountCartItemsArgs
-    orderItems?: boolean | ConsoleCountOutputTypeCountOrderItemsArgs
+  export type ProductCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cartItems?: boolean | ProductCountOutputTypeCountCartItemsArgs
+    orderItems?: boolean | ProductCountOutputTypeCountOrderItemsArgs
   }
 
   // Custom InputTypes
   /**
-   * ConsoleCountOutputType without action
+   * ProductCountOutputType without action
    */
-  export type ConsoleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProductCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ConsoleCountOutputType
+     * Select specific fields to fetch from the ProductCountOutputType
      */
-    select?: ConsoleCountOutputTypeSelect<ExtArgs> | null
+    select?: ProductCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * ConsoleCountOutputType without action
+   * ProductCountOutputType without action
    */
-  export type ConsoleCountOutputTypeCountCartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProductCountOutputTypeCountCartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CartItemWhereInput
   }
 
   /**
-   * ConsoleCountOutputType without action
+   * ProductCountOutputType without action
    */
-  export type ConsoleCountOutputTypeCountOrderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: OrderItemWhereInput
-  }
-
-
-  /**
-   * Count Type GameCountOutputType
-   */
-
-  export type GameCountOutputType = {
-    cartItems: number
-    orderItems: number
-  }
-
-  export type GameCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cartItems?: boolean | GameCountOutputTypeCountCartItemsArgs
-    orderItems?: boolean | GameCountOutputTypeCountOrderItemsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * GameCountOutputType without action
-   */
-  export type GameCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the GameCountOutputType
-     */
-    select?: GameCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * GameCountOutputType without action
-   */
-  export type GameCountOutputTypeCountCartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CartItemWhereInput
-  }
-
-  /**
-   * GameCountOutputType without action
-   */
-  export type GameCountOutputTypeCountOrderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ProductCountOutputTypeCountOrderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: OrderItemWhereInput
   }
 
@@ -3971,8 +4013,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     userID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type CartItemSumAggregateOutputType = {
@@ -3980,8 +4021,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     userID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type CartItemMinAggregateOutputType = {
@@ -3989,8 +4029,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     userID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type CartItemMaxAggregateOutputType = {
@@ -3998,8 +4037,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     userID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type CartItemCountAggregateOutputType = {
@@ -4007,8 +4045,7 @@ export namespace Prisma {
     quantity: number
     price: number
     userID: number
-    consoleID: number
-    gameID: number
+    productID: number
     _all: number
   }
 
@@ -4018,8 +4055,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     userID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type CartItemSumAggregateInputType = {
@@ -4027,8 +4063,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     userID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type CartItemMinAggregateInputType = {
@@ -4036,8 +4071,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     userID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type CartItemMaxAggregateInputType = {
@@ -4045,8 +4079,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     userID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type CartItemCountAggregateInputType = {
@@ -4054,8 +4087,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     userID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
     _all?: true
   }
 
@@ -4150,8 +4182,7 @@ export namespace Prisma {
     quantity: number
     price: Decimal
     userID: number
-    consoleID: number | null
-    gameID: number | null
+    productID: number
     _count: CartItemCountAggregateOutputType | null
     _avg: CartItemAvgAggregateOutputType | null
     _sum: CartItemSumAggregateOutputType | null
@@ -4178,11 +4209,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     userID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cartItem"]>
 
   export type CartItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4190,11 +4219,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     userID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cartItem"]>
 
   export type CartItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4202,11 +4229,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     userID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cartItem"]>
 
   export type CartItemSelectScalar = {
@@ -4214,41 +4239,35 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     userID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
   }
 
-  export type CartItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "price" | "userID" | "consoleID" | "gameID", ExtArgs["result"]["cartItem"]>
+  export type CartItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "price" | "userID" | "productID", ExtArgs["result"]["cartItem"]>
   export type CartItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type CartItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type CartItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    console?: boolean | CartItem$consoleArgs<ExtArgs>
-    game?: boolean | CartItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
 
   export type $CartItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CartItem"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      console: Prisma.$ConsolePayload<ExtArgs> | null
-      game: Prisma.$GamePayload<ExtArgs> | null
+      product: Prisma.$ProductPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       quantity: number
       price: Prisma.Decimal
       userID: number
-      consoleID: number | null
-      gameID: number | null
+      productID: number
     }, ExtArgs["result"]["cartItem"]>
     composites: {}
   }
@@ -4644,8 +4663,7 @@ export namespace Prisma {
   export interface Prisma__CartItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    console<T extends CartItem$consoleArgs<ExtArgs> = {}>(args?: Subset<T, CartItem$consoleArgs<ExtArgs>>): Prisma__ConsoleClient<$Result.GetResult<Prisma.$ConsolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    game<T extends CartItem$gameArgs<ExtArgs> = {}>(args?: Subset<T, CartItem$gameArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4679,8 +4697,7 @@ export namespace Prisma {
     readonly quantity: FieldRef<"CartItem", 'Int'>
     readonly price: FieldRef<"CartItem", 'Decimal'>
     readonly userID: FieldRef<"CartItem", 'Int'>
-    readonly consoleID: FieldRef<"CartItem", 'Int'>
-    readonly gameID: FieldRef<"CartItem", 'Int'>
+    readonly productID: FieldRef<"CartItem", 'Int'>
   }
     
 
@@ -5077,44 +5094,6 @@ export namespace Prisma {
   }
 
   /**
-   * CartItem.console
-   */
-  export type CartItem$consoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Console
-     */
-    select?: ConsoleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Console
-     */
-    omit?: ConsoleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConsoleInclude<ExtArgs> | null
-    where?: ConsoleWhereInput
-  }
-
-  /**
-   * CartItem.game
-   */
-  export type CartItem$gameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Game
-     */
-    select?: GameSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Game
-     */
-    omit?: GameOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GameInclude<ExtArgs> | null
-    where?: GameWhereInput
-  }
-
-  /**
    * CartItem without action
    */
   export type CartItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5150,8 +5129,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     orderID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type OrderItemSumAggregateOutputType = {
@@ -5159,8 +5137,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     orderID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type OrderItemMinAggregateOutputType = {
@@ -5168,8 +5145,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     orderID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type OrderItemMaxAggregateOutputType = {
@@ -5177,8 +5153,7 @@ export namespace Prisma {
     quantity: number | null
     price: Decimal | null
     orderID: number | null
-    consoleID: number | null
-    gameID: number | null
+    productID: number | null
   }
 
   export type OrderItemCountAggregateOutputType = {
@@ -5186,8 +5161,7 @@ export namespace Prisma {
     quantity: number
     price: number
     orderID: number
-    consoleID: number
-    gameID: number
+    productID: number
     _all: number
   }
 
@@ -5197,8 +5171,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     orderID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type OrderItemSumAggregateInputType = {
@@ -5206,8 +5179,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     orderID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type OrderItemMinAggregateInputType = {
@@ -5215,8 +5187,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     orderID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type OrderItemMaxAggregateInputType = {
@@ -5224,8 +5195,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     orderID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
   }
 
   export type OrderItemCountAggregateInputType = {
@@ -5233,8 +5203,7 @@ export namespace Prisma {
     quantity?: true
     price?: true
     orderID?: true
-    consoleID?: true
-    gameID?: true
+    productID?: true
     _all?: true
   }
 
@@ -5329,8 +5298,7 @@ export namespace Prisma {
     quantity: number
     price: Decimal
     orderID: number
-    consoleID: number | null
-    gameID: number | null
+    productID: number
     _count: OrderItemCountAggregateOutputType | null
     _avg: OrderItemAvgAggregateOutputType | null
     _sum: OrderItemSumAggregateOutputType | null
@@ -5357,11 +5325,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     orderID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5369,11 +5335,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     orderID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5381,11 +5345,9 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     orderID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["orderItem"]>
 
   export type OrderItemSelectScalar = {
@@ -5393,41 +5355,35 @@ export namespace Prisma {
     quantity?: boolean
     price?: boolean
     orderID?: boolean
-    consoleID?: boolean
-    gameID?: boolean
+    productID?: boolean
   }
 
-  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "price" | "orderID" | "consoleID" | "gameID", ExtArgs["result"]["orderItem"]>
+  export type OrderItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "quantity" | "price" | "orderID" | "productID", ExtArgs["result"]["orderItem"]>
   export type OrderItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type OrderItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type OrderItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     order?: boolean | OrderDefaultArgs<ExtArgs>
-    console?: boolean | OrderItem$consoleArgs<ExtArgs>
-    game?: boolean | OrderItem$gameArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
 
   export type $OrderItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "OrderItem"
     objects: {
       order: Prisma.$OrderPayload<ExtArgs>
-      console: Prisma.$ConsolePayload<ExtArgs> | null
-      game: Prisma.$GamePayload<ExtArgs> | null
+      product: Prisma.$ProductPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       quantity: number
       price: Prisma.Decimal
       orderID: number
-      consoleID: number | null
-      gameID: number | null
+      productID: number
     }, ExtArgs["result"]["orderItem"]>
     composites: {}
   }
@@ -5823,8 +5779,7 @@ export namespace Prisma {
   export interface Prisma__OrderItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     order<T extends OrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OrderDefaultArgs<ExtArgs>>): Prisma__OrderClient<$Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    console<T extends OrderItem$consoleArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$consoleArgs<ExtArgs>>): Prisma__ConsoleClient<$Result.GetResult<Prisma.$ConsolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    game<T extends OrderItem$gameArgs<ExtArgs> = {}>(args?: Subset<T, OrderItem$gameArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5858,8 +5813,7 @@ export namespace Prisma {
     readonly quantity: FieldRef<"OrderItem", 'Int'>
     readonly price: FieldRef<"OrderItem", 'Decimal'>
     readonly orderID: FieldRef<"OrderItem", 'Int'>
-    readonly consoleID: FieldRef<"OrderItem", 'Int'>
-    readonly gameID: FieldRef<"OrderItem", 'Int'>
+    readonly productID: FieldRef<"OrderItem", 'Int'>
   }
     
 
@@ -6256,44 +6210,6 @@ export namespace Prisma {
   }
 
   /**
-   * OrderItem.console
-   */
-  export type OrderItem$consoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Console
-     */
-    select?: ConsoleSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Console
-     */
-    omit?: ConsoleOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ConsoleInclude<ExtArgs> | null
-    where?: ConsoleWhereInput
-  }
-
-  /**
-   * OrderItem.game
-   */
-  export type OrderItem$gameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Game
-     */
-    select?: GameSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Game
-     */
-    omit?: GameOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GameInclude<ExtArgs> | null
-    where?: GameWhereInput
-  }
-
-  /**
    * OrderItem without action
    */
   export type OrderItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6502,8 +6418,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    consoles?: boolean | Category$consolesArgs<ExtArgs>
-    games?: boolean | Category$gamesArgs<ExtArgs>
+    products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["category"]>
 
@@ -6530,8 +6445,7 @@ export namespace Prisma {
 
   export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["category"]>
   export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    consoles?: boolean | Category$consolesArgs<ExtArgs>
-    games?: boolean | Category$gamesArgs<ExtArgs>
+    products?: boolean | Category$productsArgs<ExtArgs>
     _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CategoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6540,8 +6454,7 @@ export namespace Prisma {
   export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Category"
     objects: {
-      consoles: Prisma.$ConsolePayload<ExtArgs>[]
-      games: Prisma.$GamePayload<ExtArgs>[]
+      products: Prisma.$ProductPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6942,8 +6855,7 @@ export namespace Prisma {
    */
   export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    consoles<T extends Category$consolesArgs<ExtArgs> = {}>(args?: Subset<T, Category$consolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConsolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    games<T extends Category$gamesArgs<ExtArgs> = {}>(args?: Subset<T, Category$gamesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    products<T extends Category$productsArgs<ExtArgs> = {}>(args?: Subset<T, Category$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7365,51 +7277,27 @@ export namespace Prisma {
   }
 
   /**
-   * Category.consoles
+   * Category.products
    */
-  export type Category$consolesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Category$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Console
+     * Select specific fields to fetch from the Product
      */
-    select?: ConsoleSelect<ExtArgs> | null
+    select?: ProductSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Console
+     * Omit specific fields from the Product
      */
-    omit?: ConsoleOmit<ExtArgs> | null
+    omit?: ProductOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ConsoleInclude<ExtArgs> | null
-    where?: ConsoleWhereInput
-    orderBy?: ConsoleOrderByWithRelationInput | ConsoleOrderByWithRelationInput[]
-    cursor?: ConsoleWhereUniqueInput
+    include?: ProductInclude<ExtArgs> | null
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    cursor?: ProductWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ConsoleScalarFieldEnum | ConsoleScalarFieldEnum[]
-  }
-
-  /**
-   * Category.games
-   */
-  export type Category$gamesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Game
-     */
-    select?: GameSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Game
-     */
-    omit?: GameOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: GameInclude<ExtArgs> | null
-    where?: GameWhereInput
-    orderBy?: GameOrderByWithRelationInput | GameOrderByWithRelationInput[]
-    cursor?: GameWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: GameScalarFieldEnum | GameScalarFieldEnum[]
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
   }
 
   /**
@@ -7432,6 +7320,1210 @@ export namespace Prisma {
 
 
   /**
+   * Model Product
+   */
+
+  export type AggregateProduct = {
+    _count: ProductCountAggregateOutputType | null
+    _avg: ProductAvgAggregateOutputType | null
+    _sum: ProductSumAggregateOutputType | null
+    _min: ProductMinAggregateOutputType | null
+    _max: ProductMaxAggregateOutputType | null
+  }
+
+  export type ProductAvgAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    categoryID: number | null
+  }
+
+  export type ProductSumAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    categoryID: number | null
+  }
+
+  export type ProductMinAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    categoryID: number | null
+  }
+
+  export type ProductMaxAggregateOutputType = {
+    id: number | null
+    price: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    categoryID: number | null
+  }
+
+  export type ProductCountAggregateOutputType = {
+    id: number
+    price: number
+    createdAt: number
+    updatedAt: number
+    categoryID: number
+    _all: number
+  }
+
+
+  export type ProductAvgAggregateInputType = {
+    id?: true
+    price?: true
+    categoryID?: true
+  }
+
+  export type ProductSumAggregateInputType = {
+    id?: true
+    price?: true
+    categoryID?: true
+  }
+
+  export type ProductMinAggregateInputType = {
+    id?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+    categoryID?: true
+  }
+
+  export type ProductMaxAggregateInputType = {
+    id?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+    categoryID?: true
+  }
+
+  export type ProductCountAggregateInputType = {
+    id?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+    categoryID?: true
+    _all?: true
+  }
+
+  export type ProductAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Product to aggregate.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Products
+    **/
+    _count?: true | ProductCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProductAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProductSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProductMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProductMaxAggregateInputType
+  }
+
+  export type GetProductAggregateType<T extends ProductAggregateArgs> = {
+        [P in keyof T & keyof AggregateProduct]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProduct[P]>
+      : GetScalarType<T[P], AggregateProduct[P]>
+  }
+
+
+
+
+  export type ProductGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductWhereInput
+    orderBy?: ProductOrderByWithAggregationInput | ProductOrderByWithAggregationInput[]
+    by: ProductScalarFieldEnum[] | ProductScalarFieldEnum
+    having?: ProductScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProductCountAggregateInputType | true
+    _avg?: ProductAvgAggregateInputType
+    _sum?: ProductSumAggregateInputType
+    _min?: ProductMinAggregateInputType
+    _max?: ProductMaxAggregateInputType
+  }
+
+  export type ProductGroupByOutputType = {
+    id: number
+    price: Decimal
+    createdAt: Date
+    updatedAt: Date
+    categoryID: number
+    _count: ProductCountAggregateOutputType | null
+    _avg: ProductAvgAggregateOutputType | null
+    _sum: ProductSumAggregateOutputType | null
+    _min: ProductMinAggregateOutputType | null
+    _max: ProductMaxAggregateOutputType | null
+  }
+
+  type GetProductGroupByPayload<T extends ProductGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProductGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProductGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProductGroupByOutputType[P]>
+            : GetScalarType<T[P], ProductGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    categoryID?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    console?: boolean | Product$consoleArgs<ExtArgs>
+    game?: boolean | Product$gameArgs<ExtArgs>
+    cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
+    orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
+    _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["product"]>
+
+  export type ProductSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    categoryID?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["product"]>
+
+  export type ProductSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    categoryID?: boolean
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["product"]>
+
+  export type ProductSelectScalar = {
+    id?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    categoryID?: boolean
+  }
+
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "price" | "createdAt" | "updatedAt" | "categoryID", ExtArgs["result"]["product"]>
+  export type ProductInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    console?: boolean | Product$consoleArgs<ExtArgs>
+    game?: boolean | Product$gameArgs<ExtArgs>
+    cartItems?: boolean | Product$cartItemsArgs<ExtArgs>
+    orderItems?: boolean | Product$orderItemsArgs<ExtArgs>
+    _count?: boolean | ProductCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProductIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+  export type ProductIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
+  }
+
+  export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Product"
+    objects: {
+      category: Prisma.$CategoryPayload<ExtArgs>
+      console: Prisma.$ConsolePayload<ExtArgs> | null
+      game: Prisma.$GamePayload<ExtArgs> | null
+      cartItems: Prisma.$CartItemPayload<ExtArgs>[]
+      orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      price: Prisma.Decimal
+      createdAt: Date
+      updatedAt: Date
+      categoryID: number
+    }, ExtArgs["result"]["product"]>
+    composites: {}
+  }
+
+  type ProductGetPayload<S extends boolean | null | undefined | ProductDefaultArgs> = $Result.GetResult<Prisma.$ProductPayload, S>
+
+  type ProductCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProductFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProductCountAggregateInputType | true
+    }
+
+  export interface ProductDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Product'], meta: { name: 'Product' } }
+    /**
+     * Find zero or one Product that matches the filter.
+     * @param {ProductFindUniqueArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProductFindUniqueArgs>(args: SelectSubset<T, ProductFindUniqueArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Product that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProductFindUniqueOrThrowArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProductFindUniqueOrThrowArgs>(args: SelectSubset<T, ProductFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Product that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindFirstArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProductFindFirstArgs>(args?: SelectSubset<T, ProductFindFirstArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Product that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindFirstOrThrowArgs} args - Arguments to find a Product
+     * @example
+     * // Get one Product
+     * const product = await prisma.product.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProductFindFirstOrThrowArgs>(args?: SelectSubset<T, ProductFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Products that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Products
+     * const products = await prisma.product.findMany()
+     * 
+     * // Get first 10 Products
+     * const products = await prisma.product.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const productWithIdOnly = await prisma.product.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ProductFindManyArgs>(args?: SelectSubset<T, ProductFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Product.
+     * @param {ProductCreateArgs} args - Arguments to create a Product.
+     * @example
+     * // Create one Product
+     * const Product = await prisma.product.create({
+     *   data: {
+     *     // ... data to create a Product
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProductCreateArgs>(args: SelectSubset<T, ProductCreateArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Products.
+     * @param {ProductCreateManyArgs} args - Arguments to create many Products.
+     * @example
+     * // Create many Products
+     * const product = await prisma.product.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProductCreateManyArgs>(args?: SelectSubset<T, ProductCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Products and returns the data saved in the database.
+     * @param {ProductCreateManyAndReturnArgs} args - Arguments to create many Products.
+     * @example
+     * // Create many Products
+     * const product = await prisma.product.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Products and only return the `id`
+     * const productWithIdOnly = await prisma.product.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProductCreateManyAndReturnArgs>(args?: SelectSubset<T, ProductCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Product.
+     * @param {ProductDeleteArgs} args - Arguments to delete one Product.
+     * @example
+     * // Delete one Product
+     * const Product = await prisma.product.delete({
+     *   where: {
+     *     // ... filter to delete one Product
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProductDeleteArgs>(args: SelectSubset<T, ProductDeleteArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Product.
+     * @param {ProductUpdateArgs} args - Arguments to update one Product.
+     * @example
+     * // Update one Product
+     * const product = await prisma.product.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProductUpdateArgs>(args: SelectSubset<T, ProductUpdateArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Products.
+     * @param {ProductDeleteManyArgs} args - Arguments to filter Products to delete.
+     * @example
+     * // Delete a few Products
+     * const { count } = await prisma.product.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProductDeleteManyArgs>(args?: SelectSubset<T, ProductDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Products
+     * const product = await prisma.product.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProductUpdateManyArgs>(args: SelectSubset<T, ProductUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Products and returns the data updated in the database.
+     * @param {ProductUpdateManyAndReturnArgs} args - Arguments to update many Products.
+     * @example
+     * // Update many Products
+     * const product = await prisma.product.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Products and only return the `id`
+     * const productWithIdOnly = await prisma.product.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProductUpdateManyAndReturnArgs>(args: SelectSubset<T, ProductUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Product.
+     * @param {ProductUpsertArgs} args - Arguments to update or create a Product.
+     * @example
+     * // Update or create a Product
+     * const product = await prisma.product.upsert({
+     *   create: {
+     *     // ... data to create a Product
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Product we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProductUpsertArgs>(args: SelectSubset<T, ProductUpsertArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Products.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductCountArgs} args - Arguments to filter Products to count.
+     * @example
+     * // Count the number of Products
+     * const count = await prisma.product.count({
+     *   where: {
+     *     // ... the filter for the Products we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProductCountArgs>(
+      args?: Subset<T, ProductCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProductCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Product.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProductAggregateArgs>(args: Subset<T, ProductAggregateArgs>): Prisma.PrismaPromise<GetProductAggregateType<T>>
+
+    /**
+     * Group by Product.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProductGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProductGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProductGroupByArgs['orderBy'] }
+        : { orderBy?: ProductGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProductGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProductGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Product model
+   */
+  readonly fields: ProductFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Product.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProductClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    console<T extends Product$consoleArgs<ExtArgs> = {}>(args?: Subset<T, Product$consoleArgs<ExtArgs>>): Prisma__ConsoleClient<$Result.GetResult<Prisma.$ConsolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    game<T extends Product$gameArgs<ExtArgs> = {}>(args?: Subset<T, Product$gameArgs<ExtArgs>>): Prisma__GameClient<$Result.GetResult<Prisma.$GamePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    cartItems<T extends Product$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    orderItems<T extends Product$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Product$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Product model
+   */
+  interface ProductFieldRefs {
+    readonly id: FieldRef<"Product", 'Int'>
+    readonly price: FieldRef<"Product", 'Decimal'>
+    readonly createdAt: FieldRef<"Product", 'DateTime'>
+    readonly updatedAt: FieldRef<"Product", 'DateTime'>
+    readonly categoryID: FieldRef<"Product", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Product findUnique
+   */
+  export type ProductFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+  /**
+   * Product findUniqueOrThrow
+   */
+  export type ProductFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+  /**
+   * Product findFirst
+   */
+  export type ProductFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Products.
+     */
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+  /**
+   * Product findFirstOrThrow
+   */
+  export type ProductFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Product to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Products.
+     */
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+  /**
+   * Product findMany
+   */
+  export type ProductFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter, which Products to fetch.
+     */
+    where?: ProductWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Products to fetch.
+     */
+    orderBy?: ProductOrderByWithRelationInput | ProductOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Products.
+     */
+    cursor?: ProductWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Products from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Products.
+     */
+    skip?: number
+    distinct?: ProductScalarFieldEnum | ProductScalarFieldEnum[]
+  }
+
+  /**
+   * Product create
+   */
+  export type ProductCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Product.
+     */
+    data: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+  }
+
+  /**
+   * Product createMany
+   */
+  export type ProductCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Products.
+     */
+    data: ProductCreateManyInput | ProductCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Product createManyAndReturn
+   */
+  export type ProductCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * The data used to create many Products.
+     */
+    data: ProductCreateManyInput | ProductCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Product update
+   */
+  export type ProductUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Product.
+     */
+    data: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+    /**
+     * Choose, which Product to update.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+  /**
+   * Product updateMany
+   */
+  export type ProductUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Products.
+     */
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyInput>
+    /**
+     * Filter which Products to update
+     */
+    where?: ProductWhereInput
+    /**
+     * Limit how many Products to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Product updateManyAndReturn
+   */
+  export type ProductUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * The data used to update Products.
+     */
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyInput>
+    /**
+     * Filter which Products to update
+     */
+    where?: ProductWhereInput
+    /**
+     * Limit how many Products to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Product upsert
+   */
+  export type ProductUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Product to update in case it exists.
+     */
+    where: ProductWhereUniqueInput
+    /**
+     * In case the Product found by the `where` argument doesn't exist, create a new Product with this data.
+     */
+    create: XOR<ProductCreateInput, ProductUncheckedCreateInput>
+    /**
+     * In case the Product was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProductUpdateInput, ProductUncheckedUpdateInput>
+  }
+
+  /**
+   * Product delete
+   */
+  export type ProductDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+    /**
+     * Filter which Product to delete.
+     */
+    where: ProductWhereUniqueInput
+  }
+
+  /**
+   * Product deleteMany
+   */
+  export type ProductDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Products to delete
+     */
+    where?: ProductWhereInput
+    /**
+     * Limit how many Products to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Product.console
+   */
+  export type Product$consoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Console
+     */
+    select?: ConsoleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Console
+     */
+    omit?: ConsoleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConsoleInclude<ExtArgs> | null
+    where?: ConsoleWhereInput
+  }
+
+  /**
+   * Product.game
+   */
+  export type Product$gameArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Game
+     */
+    select?: GameSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Game
+     */
+    omit?: GameOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: GameInclude<ExtArgs> | null
+    where?: GameWhereInput
+  }
+
+  /**
+   * Product.cartItems
+   */
+  export type Product$cartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CartItem
+     */
+    select?: CartItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CartItem
+     */
+    omit?: CartItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CartItemInclude<ExtArgs> | null
+    where?: CartItemWhereInput
+    orderBy?: CartItemOrderByWithRelationInput | CartItemOrderByWithRelationInput[]
+    cursor?: CartItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CartItemScalarFieldEnum | CartItemScalarFieldEnum[]
+  }
+
+  /**
+   * Product.orderItems
+   */
+  export type Product$orderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrderItem
+     */
+    select?: OrderItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the OrderItem
+     */
+    omit?: OrderItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrderItemInclude<ExtArgs> | null
+    where?: OrderItemWhereInput
+    orderBy?: OrderItemOrderByWithRelationInput | OrderItemOrderByWithRelationInput[]
+    cursor?: OrderItemWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrderItemScalarFieldEnum | OrderItemScalarFieldEnum[]
+  }
+
+  /**
+   * Product without action
+   */
+  export type ProductDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Product
+     */
+    select?: ProductSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Product
+     */
+    omit?: ProductOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Console
    */
 
@@ -7445,14 +8537,12 @@ export namespace Prisma {
 
   export type ConsoleAvgAggregateOutputType = {
     id: number | null
-    price: Decimal | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type ConsoleSumAggregateOutputType = {
     id: number | null
-    price: Decimal | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type ConsoleMinAggregateOutputType = {
@@ -7464,10 +8554,7 @@ export namespace Prisma {
     gpu: string | null
     ram: string | null
     resolution: string | null
-    price: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type ConsoleMaxAggregateOutputType = {
@@ -7479,10 +8566,7 @@ export namespace Prisma {
     gpu: string | null
     ram: string | null
     resolution: string | null
-    price: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type ConsoleCountAggregateOutputType = {
@@ -7494,24 +8578,19 @@ export namespace Prisma {
     gpu: number
     ram: number
     resolution: number
-    price: number
-    createdAt: number
-    updatedAt: number
-    categoryID: number
+    productID: number
     _all: number
   }
 
 
   export type ConsoleAvgAggregateInputType = {
     id?: true
-    price?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type ConsoleSumAggregateInputType = {
     id?: true
-    price?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type ConsoleMinAggregateInputType = {
@@ -7523,10 +8602,7 @@ export namespace Prisma {
     gpu?: true
     ram?: true
     resolution?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type ConsoleMaxAggregateInputType = {
@@ -7538,10 +8614,7 @@ export namespace Prisma {
     gpu?: true
     ram?: true
     resolution?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type ConsoleCountAggregateInputType = {
@@ -7553,10 +8626,7 @@ export namespace Prisma {
     gpu?: true
     ram?: true
     resolution?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    productID?: true
     _all?: true
   }
 
@@ -7655,10 +8725,7 @@ export namespace Prisma {
     gpu: string | null
     ram: string | null
     resolution: string | null
-    price: Decimal
-    createdAt: Date
-    updatedAt: Date
-    categoryID: number
+    productID: number
     _count: ConsoleCountAggregateOutputType | null
     _avg: ConsoleAvgAggregateOutputType | null
     _sum: ConsoleSumAggregateOutputType | null
@@ -7689,14 +8756,8 @@ export namespace Prisma {
     gpu?: boolean
     ram?: boolean
     resolution?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
-    cartItems?: boolean | Console$cartItemsArgs<ExtArgs>
-    orderItems?: boolean | Console$orderItemsArgs<ExtArgs>
-    _count?: boolean | ConsoleCountOutputTypeDefaultArgs<ExtArgs>
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["console"]>
 
   export type ConsoleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7708,11 +8769,8 @@ export namespace Prisma {
     gpu?: boolean
     ram?: boolean
     resolution?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["console"]>
 
   export type ConsoleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7724,11 +8782,8 @@ export namespace Prisma {
     gpu?: boolean
     ram?: boolean
     resolution?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["console"]>
 
   export type ConsoleSelectScalar = {
@@ -7740,32 +8795,24 @@ export namespace Prisma {
     gpu?: boolean
     ram?: boolean
     resolution?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
+    productID?: boolean
   }
 
-  export type ConsoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "brand" | "model" | "storage" | "cpu" | "gpu" | "ram" | "resolution" | "price" | "createdAt" | "updatedAt" | "categoryID", ExtArgs["result"]["console"]>
+  export type ConsoleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "brand" | "model" | "storage" | "cpu" | "gpu" | "ram" | "resolution" | "productID", ExtArgs["result"]["console"]>
   export type ConsoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
-    cartItems?: boolean | Console$cartItemsArgs<ExtArgs>
-    orderItems?: boolean | Console$orderItemsArgs<ExtArgs>
-    _count?: boolean | ConsoleCountOutputTypeDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type ConsoleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type ConsoleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
 
   export type $ConsolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Console"
     objects: {
-      category: Prisma.$CategoryPayload<ExtArgs>
-      cartItems: Prisma.$CartItemPayload<ExtArgs>[]
-      orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+      product: Prisma.$ProductPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -7776,10 +8823,7 @@ export namespace Prisma {
       gpu: string | null
       ram: string | null
       resolution: string | null
-      price: Prisma.Decimal
-      createdAt: Date
-      updatedAt: Date
-      categoryID: number
+      productID: number
     }, ExtArgs["result"]["console"]>
     composites: {}
   }
@@ -8174,9 +9218,7 @@ export namespace Prisma {
    */
   export interface Prisma__ConsoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    cartItems<T extends Console$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Console$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orderItems<T extends Console$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Console$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8214,10 +9256,7 @@ export namespace Prisma {
     readonly gpu: FieldRef<"Console", 'String'>
     readonly ram: FieldRef<"Console", 'String'>
     readonly resolution: FieldRef<"Console", 'String'>
-    readonly price: FieldRef<"Console", 'Decimal'>
-    readonly createdAt: FieldRef<"Console", 'DateTime'>
-    readonly updatedAt: FieldRef<"Console", 'DateTime'>
-    readonly categoryID: FieldRef<"Console", 'Int'>
+    readonly productID: FieldRef<"Console", 'Int'>
   }
     
 
@@ -8614,54 +9653,6 @@ export namespace Prisma {
   }
 
   /**
-   * Console.cartItems
-   */
-  export type Console$cartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CartItem
-     */
-    select?: CartItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CartItem
-     */
-    omit?: CartItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CartItemInclude<ExtArgs> | null
-    where?: CartItemWhereInput
-    orderBy?: CartItemOrderByWithRelationInput | CartItemOrderByWithRelationInput[]
-    cursor?: CartItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CartItemScalarFieldEnum | CartItemScalarFieldEnum[]
-  }
-
-  /**
-   * Console.orderItems
-   */
-  export type Console$orderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderItem
-     */
-    select?: OrderItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderItem
-     */
-    omit?: OrderItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderItemInclude<ExtArgs> | null
-    where?: OrderItemWhereInput
-    orderBy?: OrderItemOrderByWithRelationInput | OrderItemOrderByWithRelationInput[]
-    cursor?: OrderItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrderItemScalarFieldEnum | OrderItemScalarFieldEnum[]
-  }
-
-  /**
    * Console without action
    */
   export type ConsoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8694,88 +9685,78 @@ export namespace Prisma {
 
   export type GameAvgAggregateOutputType = {
     id: number | null
-    price: Decimal | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type GameSumAggregateOutputType = {
     id: number | null
-    price: Decimal | null
-    categoryID: number | null
+    productID: number | null
   }
 
   export type GameMinAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     platform: string | null
-    price: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    categoryID: number | null
+    genres: string | null
+    productID: number | null
   }
 
   export type GameMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    description: string | null
     platform: string | null
-    price: Decimal | null
-    createdAt: Date | null
-    updatedAt: Date | null
-    categoryID: number | null
+    genres: string | null
+    productID: number | null
   }
 
   export type GameCountAggregateOutputType = {
     id: number
     name: number
+    description: number
     platform: number
-    price: number
-    createdAt: number
-    updatedAt: number
-    categoryID: number
+    genres: number
+    productID: number
     _all: number
   }
 
 
   export type GameAvgAggregateInputType = {
     id?: true
-    price?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type GameSumAggregateInputType = {
     id?: true
-    price?: true
-    categoryID?: true
+    productID?: true
   }
 
   export type GameMinAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     platform?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    genres?: true
+    productID?: true
   }
 
   export type GameMaxAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     platform?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    genres?: true
+    productID?: true
   }
 
   export type GameCountAggregateInputType = {
     id?: true
     name?: true
+    description?: true
     platform?: true
-    price?: true
-    createdAt?: true
-    updatedAt?: true
-    categoryID?: true
+    genres?: true
+    productID?: true
     _all?: true
   }
 
@@ -8868,11 +9849,10 @@ export namespace Prisma {
   export type GameGroupByOutputType = {
     id: number
     name: string
+    description: string
     platform: string
-    price: Decimal
-    createdAt: Date
-    updatedAt: Date
-    categoryID: number
+    genres: string
+    productID: number
     _count: GameCountAggregateOutputType | null
     _avg: GameAvgAggregateOutputType | null
     _sum: GameSumAggregateOutputType | null
@@ -8897,78 +9877,65 @@ export namespace Prisma {
   export type GameSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     platform?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
-    cartItems?: boolean | Game$cartItemsArgs<ExtArgs>
-    orderItems?: boolean | Game$orderItemsArgs<ExtArgs>
-    _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
+    genres?: boolean
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     platform?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    genres?: boolean
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    description?: boolean
     platform?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    genres?: boolean
+    productID?: boolean
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["game"]>
 
   export type GameSelectScalar = {
     id?: boolean
     name?: boolean
+    description?: boolean
     platform?: boolean
-    price?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    categoryID?: boolean
+    genres?: boolean
+    productID?: boolean
   }
 
-  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "platform" | "price" | "createdAt" | "updatedAt" | "categoryID", ExtArgs["result"]["game"]>
+  export type GameOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "platform" | "genres" | "productID", ExtArgs["result"]["game"]>
   export type GameInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
-    cartItems?: boolean | Game$cartItemsArgs<ExtArgs>
-    orderItems?: boolean | Game$orderItemsArgs<ExtArgs>
-    _count?: boolean | GameCountOutputTypeDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type GameIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
   export type GameIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    category?: boolean | CategoryDefaultArgs<ExtArgs>
+    product?: boolean | ProductDefaultArgs<ExtArgs>
   }
 
   export type $GamePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Game"
     objects: {
-      category: Prisma.$CategoryPayload<ExtArgs>
-      cartItems: Prisma.$CartItemPayload<ExtArgs>[]
-      orderItems: Prisma.$OrderItemPayload<ExtArgs>[]
+      product: Prisma.$ProductPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      description: string
       platform: string
-      price: Prisma.Decimal
-      createdAt: Date
-      updatedAt: Date
-      categoryID: number
+      genres: string
+      productID: number
     }, ExtArgs["result"]["game"]>
     composites: {}
   }
@@ -9363,9 +10330,7 @@ export namespace Prisma {
    */
   export interface Prisma__GameClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    cartItems<T extends Game$cartItemsArgs<ExtArgs> = {}>(args?: Subset<T, Game$cartItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CartItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    orderItems<T extends Game$orderItemsArgs<ExtArgs> = {}>(args?: Subset<T, Game$orderItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrderItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    product<T extends ProductDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductDefaultArgs<ExtArgs>>): Prisma__ProductClient<$Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9397,11 +10362,10 @@ export namespace Prisma {
   interface GameFieldRefs {
     readonly id: FieldRef<"Game", 'Int'>
     readonly name: FieldRef<"Game", 'String'>
+    readonly description: FieldRef<"Game", 'String'>
     readonly platform: FieldRef<"Game", 'String'>
-    readonly price: FieldRef<"Game", 'Decimal'>
-    readonly createdAt: FieldRef<"Game", 'DateTime'>
-    readonly updatedAt: FieldRef<"Game", 'DateTime'>
-    readonly categoryID: FieldRef<"Game", 'Int'>
+    readonly genres: FieldRef<"Game", 'String'>
+    readonly productID: FieldRef<"Game", 'Int'>
   }
     
 
@@ -9798,54 +10762,6 @@ export namespace Prisma {
   }
 
   /**
-   * Game.cartItems
-   */
-  export type Game$cartItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CartItem
-     */
-    select?: CartItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the CartItem
-     */
-    omit?: CartItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CartItemInclude<ExtArgs> | null
-    where?: CartItemWhereInput
-    orderBy?: CartItemOrderByWithRelationInput | CartItemOrderByWithRelationInput[]
-    cursor?: CartItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CartItemScalarFieldEnum | CartItemScalarFieldEnum[]
-  }
-
-  /**
-   * Game.orderItems
-   */
-  export type Game$orderItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the OrderItem
-     */
-    select?: OrderItemSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the OrderItem
-     */
-    omit?: OrderItemOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: OrderItemInclude<ExtArgs> | null
-    where?: OrderItemWhereInput
-    orderBy?: OrderItemOrderByWithRelationInput | OrderItemOrderByWithRelationInput[]
-    cursor?: OrderItemWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: OrderItemScalarFieldEnum | OrderItemScalarFieldEnum[]
-  }
-
-  /**
    * Game without action
    */
   export type GameDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9910,8 +10826,7 @@ export namespace Prisma {
     quantity: 'quantity',
     price: 'price',
     userID: 'userID',
-    consoleID: 'consoleID',
-    gameID: 'gameID'
+    productID: 'productID'
   };
 
   export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
@@ -9922,8 +10837,7 @@ export namespace Prisma {
     quantity: 'quantity',
     price: 'price',
     orderID: 'orderID',
-    consoleID: 'consoleID',
-    gameID: 'gameID'
+    productID: 'productID'
   };
 
   export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
@@ -9939,6 +10853,17 @@ export namespace Prisma {
   export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
 
 
+  export const ProductScalarFieldEnum: {
+    id: 'id',
+    price: 'price',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    categoryID: 'categoryID'
+  };
+
+  export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
   export const ConsoleScalarFieldEnum: {
     id: 'id',
     brand: 'brand',
@@ -9948,10 +10873,7 @@ export namespace Prisma {
     gpu: 'gpu',
     ram: 'ram',
     resolution: 'resolution',
-    price: 'price',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    categoryID: 'categoryID'
+    productID: 'productID'
   };
 
   export type ConsoleScalarFieldEnum = (typeof ConsoleScalarFieldEnum)[keyof typeof ConsoleScalarFieldEnum]
@@ -9960,11 +10882,10 @@ export namespace Prisma {
   export const GameScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    description: 'description',
     platform: 'platform',
-    price: 'price',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    categoryID: 'categoryID'
+    genres: 'genres',
+    productID: 'productID'
   };
 
   export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
@@ -10253,11 +11174,9 @@ export namespace Prisma {
     quantity?: IntFilter<"CartItem"> | number
     price?: DecimalFilter<"CartItem"> | Decimal | DecimalJsLike | number | string
     userID?: IntFilter<"CartItem"> | number
-    consoleID?: IntNullableFilter<"CartItem"> | number | null
-    gameID?: IntNullableFilter<"CartItem"> | number | null
+    productID?: IntFilter<"CartItem"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
-    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }
 
   export type CartItemOrderByWithRelationInput = {
@@ -10265,11 +11184,9 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrderInput | SortOrder
-    gameID?: SortOrderInput | SortOrder
+    productID?: SortOrder
     user?: UserOrderByWithRelationInput
-    console?: ConsoleOrderByWithRelationInput
-    game?: GameOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
   }
 
   export type CartItemWhereUniqueInput = Prisma.AtLeast<{
@@ -10280,11 +11197,9 @@ export namespace Prisma {
     quantity?: IntFilter<"CartItem"> | number
     price?: DecimalFilter<"CartItem"> | Decimal | DecimalJsLike | number | string
     userID?: IntFilter<"CartItem"> | number
-    consoleID?: IntNullableFilter<"CartItem"> | number | null
-    gameID?: IntNullableFilter<"CartItem"> | number | null
+    productID?: IntFilter<"CartItem"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
-    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }, "id">
 
   export type CartItemOrderByWithAggregationInput = {
@@ -10292,8 +11207,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrderInput | SortOrder
-    gameID?: SortOrderInput | SortOrder
+    productID?: SortOrder
     _count?: CartItemCountOrderByAggregateInput
     _avg?: CartItemAvgOrderByAggregateInput
     _max?: CartItemMaxOrderByAggregateInput
@@ -10309,8 +11223,7 @@ export namespace Prisma {
     quantity?: IntWithAggregatesFilter<"CartItem"> | number
     price?: DecimalWithAggregatesFilter<"CartItem"> | Decimal | DecimalJsLike | number | string
     userID?: IntWithAggregatesFilter<"CartItem"> | number
-    consoleID?: IntNullableWithAggregatesFilter<"CartItem"> | number | null
-    gameID?: IntNullableWithAggregatesFilter<"CartItem"> | number | null
+    productID?: IntWithAggregatesFilter<"CartItem"> | number
   }
 
   export type OrderItemWhereInput = {
@@ -10321,11 +11234,9 @@ export namespace Prisma {
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     orderID?: IntFilter<"OrderItem"> | number
-    consoleID?: IntNullableFilter<"OrderItem"> | number | null
-    gameID?: IntNullableFilter<"OrderItem"> | number | null
+    productID?: IntFilter<"OrderItem"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
-    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }
 
   export type OrderItemOrderByWithRelationInput = {
@@ -10333,11 +11244,9 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrderInput | SortOrder
-    gameID?: SortOrderInput | SortOrder
+    productID?: SortOrder
     order?: OrderOrderByWithRelationInput
-    console?: ConsoleOrderByWithRelationInput
-    game?: GameOrderByWithRelationInput
+    product?: ProductOrderByWithRelationInput
   }
 
   export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
@@ -10348,11 +11257,9 @@ export namespace Prisma {
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     orderID?: IntFilter<"OrderItem"> | number
-    consoleID?: IntNullableFilter<"OrderItem"> | number | null
-    gameID?: IntNullableFilter<"OrderItem"> | number | null
+    productID?: IntFilter<"OrderItem"> | number
     order?: XOR<OrderScalarRelationFilter, OrderWhereInput>
-    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
-    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }, "id">
 
   export type OrderItemOrderByWithAggregationInput = {
@@ -10360,8 +11267,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrderInput | SortOrder
-    gameID?: SortOrderInput | SortOrder
+    productID?: SortOrder
     _count?: OrderItemCountOrderByAggregateInput
     _avg?: OrderItemAvgOrderByAggregateInput
     _max?: OrderItemMaxOrderByAggregateInput
@@ -10377,8 +11283,7 @@ export namespace Prisma {
     quantity?: IntWithAggregatesFilter<"OrderItem"> | number
     price?: DecimalWithAggregatesFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     orderID?: IntWithAggregatesFilter<"OrderItem"> | number
-    consoleID?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
-    gameID?: IntNullableWithAggregatesFilter<"OrderItem"> | number | null
+    productID?: IntWithAggregatesFilter<"OrderItem"> | number
   }
 
   export type CategoryWhereInput = {
@@ -10389,8 +11294,7 @@ export namespace Prisma {
     name?: StringFilter<"Category"> | string
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
-    consoles?: ConsoleListRelationFilter
-    games?: GameListRelationFilter
+    products?: ProductListRelationFilter
   }
 
   export type CategoryOrderByWithRelationInput = {
@@ -10398,8 +11302,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    consoles?: ConsoleOrderByRelationAggregateInput
-    games?: GameOrderByRelationAggregateInput
+    products?: ProductOrderByRelationAggregateInput
   }
 
   export type CategoryWhereUniqueInput = Prisma.AtLeast<{
@@ -10410,8 +11313,7 @@ export namespace Prisma {
     NOT?: CategoryWhereInput | CategoryWhereInput[]
     createdAt?: DateTimeFilter<"Category"> | Date | string
     updatedAt?: DateTimeFilter<"Category"> | Date | string
-    consoles?: ConsoleListRelationFilter
-    games?: GameListRelationFilter
+    products?: ProductListRelationFilter
   }, "id" | "name">
 
   export type CategoryOrderByWithAggregationInput = {
@@ -10436,6 +11338,75 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Category"> | Date | string
   }
 
+  export type ProductWhereInput = {
+    AND?: ProductWhereInput | ProductWhereInput[]
+    OR?: ProductWhereInput[]
+    NOT?: ProductWhereInput | ProductWhereInput[]
+    id?: IntFilter<"Product"> | number
+    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"Product"> | Date | string
+    updatedAt?: DateTimeFilter<"Product"> | Date | string
+    categoryID?: IntFilter<"Product"> | number
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
+    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    cartItems?: CartItemListRelationFilter
+    orderItems?: OrderItemListRelationFilter
+  }
+
+  export type ProductOrderByWithRelationInput = {
+    id?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categoryID?: SortOrder
+    category?: CategoryOrderByWithRelationInput
+    console?: ConsoleOrderByWithRelationInput
+    game?: GameOrderByWithRelationInput
+    cartItems?: CartItemOrderByRelationAggregateInput
+    orderItems?: OrderItemOrderByRelationAggregateInput
+  }
+
+  export type ProductWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ProductWhereInput | ProductWhereInput[]
+    OR?: ProductWhereInput[]
+    NOT?: ProductWhereInput | ProductWhereInput[]
+    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"Product"> | Date | string
+    updatedAt?: DateTimeFilter<"Product"> | Date | string
+    categoryID?: IntFilter<"Product"> | number
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
+    console?: XOR<ConsoleNullableScalarRelationFilter, ConsoleWhereInput> | null
+    game?: XOR<GameNullableScalarRelationFilter, GameWhereInput> | null
+    cartItems?: CartItemListRelationFilter
+    orderItems?: OrderItemListRelationFilter
+  }, "id">
+
+  export type ProductOrderByWithAggregationInput = {
+    id?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categoryID?: SortOrder
+    _count?: ProductCountOrderByAggregateInput
+    _avg?: ProductAvgOrderByAggregateInput
+    _max?: ProductMaxOrderByAggregateInput
+    _min?: ProductMinOrderByAggregateInput
+    _sum?: ProductSumOrderByAggregateInput
+  }
+
+  export type ProductScalarWhereWithAggregatesInput = {
+    AND?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
+    OR?: ProductScalarWhereWithAggregatesInput[]
+    NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Product"> | number
+    price?: DecimalWithAggregatesFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Product"> | Date | string
+    categoryID?: IntWithAggregatesFilter<"Product"> | number
+  }
+
   export type ConsoleWhereInput = {
     AND?: ConsoleWhereInput | ConsoleWhereInput[]
     OR?: ConsoleWhereInput[]
@@ -10448,13 +11419,8 @@ export namespace Prisma {
     gpu?: StringNullableFilter<"Console"> | string | null
     ram?: StringNullableFilter<"Console"> | string | null
     resolution?: StringNullableFilter<"Console"> | string | null
-    price?: DecimalFilter<"Console"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Console"> | Date | string
-    updatedAt?: DateTimeFilter<"Console"> | Date | string
-    categoryID?: IntFilter<"Console"> | number
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    cartItems?: CartItemListRelationFilter
-    orderItems?: OrderItemListRelationFilter
+    productID?: IntFilter<"Console"> | number
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }
 
   export type ConsoleOrderByWithRelationInput = {
@@ -10466,17 +11432,13 @@ export namespace Prisma {
     gpu?: SortOrderInput | SortOrder
     ram?: SortOrderInput | SortOrder
     resolution?: SortOrderInput | SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
-    category?: CategoryOrderByWithRelationInput
-    cartItems?: CartItemOrderByRelationAggregateInput
-    orderItems?: OrderItemOrderByRelationAggregateInput
+    productID?: SortOrder
+    product?: ProductOrderByWithRelationInput
   }
 
   export type ConsoleWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    productID?: number
     model_storage?: ConsoleModelStorageCompoundUniqueInput
     AND?: ConsoleWhereInput | ConsoleWhereInput[]
     OR?: ConsoleWhereInput[]
@@ -10488,14 +11450,8 @@ export namespace Prisma {
     gpu?: StringNullableFilter<"Console"> | string | null
     ram?: StringNullableFilter<"Console"> | string | null
     resolution?: StringNullableFilter<"Console"> | string | null
-    price?: DecimalFilter<"Console"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Console"> | Date | string
-    updatedAt?: DateTimeFilter<"Console"> | Date | string
-    categoryID?: IntFilter<"Console"> | number
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    cartItems?: CartItemListRelationFilter
-    orderItems?: OrderItemListRelationFilter
-  }, "id" | "model_storage">
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id" | "productID" | "model_storage">
 
   export type ConsoleOrderByWithAggregationInput = {
     id?: SortOrder
@@ -10506,10 +11462,7 @@ export namespace Prisma {
     gpu?: SortOrderInput | SortOrder
     ram?: SortOrderInput | SortOrder
     resolution?: SortOrderInput | SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
     _count?: ConsoleCountOrderByAggregateInput
     _avg?: ConsoleAvgOrderByAggregateInput
     _max?: ConsoleMaxOrderByAggregateInput
@@ -10529,10 +11482,7 @@ export namespace Prisma {
     gpu?: StringNullableWithAggregatesFilter<"Console"> | string | null
     ram?: StringNullableWithAggregatesFilter<"Console"> | string | null
     resolution?: StringNullableWithAggregatesFilter<"Console"> | string | null
-    price?: DecimalWithAggregatesFilter<"Console"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeWithAggregatesFilter<"Console"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Console"> | Date | string
-    categoryID?: IntWithAggregatesFilter<"Console"> | number
+    productID?: IntWithAggregatesFilter<"Console"> | number
   }
 
   export type GameWhereInput = {
@@ -10541,54 +11491,44 @@ export namespace Prisma {
     NOT?: GameWhereInput | GameWhereInput[]
     id?: IntFilter<"Game"> | number
     name?: StringFilter<"Game"> | string
+    description?: StringFilter<"Game"> | string
     platform?: StringFilter<"Game"> | string
-    price?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Game"> | Date | string
-    updatedAt?: DateTimeFilter<"Game"> | Date | string
-    categoryID?: IntFilter<"Game"> | number
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    cartItems?: CartItemListRelationFilter
-    orderItems?: OrderItemListRelationFilter
+    genres?: StringFilter<"Game"> | string
+    productID?: IntFilter<"Game"> | number
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
   }
 
   export type GameOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     platform?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
-    category?: CategoryOrderByWithRelationInput
-    cartItems?: CartItemOrderByRelationAggregateInput
-    orderItems?: OrderItemOrderByRelationAggregateInput
+    genres?: SortOrder
+    productID?: SortOrder
+    product?: ProductOrderByWithRelationInput
   }
 
   export type GameWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     name?: string
+    productID?: number
     name_platform?: GameNamePlatformCompoundUniqueInput
     AND?: GameWhereInput | GameWhereInput[]
     OR?: GameWhereInput[]
     NOT?: GameWhereInput | GameWhereInput[]
+    description?: StringFilter<"Game"> | string
     platform?: StringFilter<"Game"> | string
-    price?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Game"> | Date | string
-    updatedAt?: DateTimeFilter<"Game"> | Date | string
-    categoryID?: IntFilter<"Game"> | number
-    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
-    cartItems?: CartItemListRelationFilter
-    orderItems?: OrderItemListRelationFilter
-  }, "id" | "name" | "name_platform">
+    genres?: StringFilter<"Game"> | string
+    product?: XOR<ProductScalarRelationFilter, ProductWhereInput>
+  }, "id" | "name" | "productID" | "name_platform">
 
   export type GameOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     platform?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    genres?: SortOrder
+    productID?: SortOrder
     _count?: GameCountOrderByAggregateInput
     _avg?: GameAvgOrderByAggregateInput
     _max?: GameMaxOrderByAggregateInput
@@ -10602,11 +11542,10 @@ export namespace Prisma {
     NOT?: GameScalarWhereWithAggregatesInput | GameScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Game"> | number
     name?: StringWithAggregatesFilter<"Game"> | string
+    description?: StringWithAggregatesFilter<"Game"> | string
     platform?: StringWithAggregatesFilter<"Game"> | string
-    price?: DecimalWithAggregatesFilter<"Game"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeWithAggregatesFilter<"Game"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"Game"> | Date | string
-    categoryID?: IntWithAggregatesFilter<"Game"> | number
+    genres?: StringWithAggregatesFilter<"Game"> | string
+    productID?: IntWithAggregatesFilter<"Game"> | number
   }
 
   export type UserCreateInput = {
@@ -10765,8 +11704,7 @@ export namespace Prisma {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     user: UserCreateNestedOneWithoutCartItemsInput
-    console?: ConsoleCreateNestedOneWithoutCartItemsInput
-    game?: GameCreateNestedOneWithoutCartItemsInput
+    product: ProductCreateNestedOneWithoutCartItemsInput
   }
 
   export type CartItemUncheckedCreateInput = {
@@ -10774,16 +11712,14 @@ export namespace Prisma {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     userID: number
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type CartItemUpdateInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user?: UserUpdateOneRequiredWithoutCartItemsNestedInput
-    console?: ConsoleUpdateOneWithoutCartItemsNestedInput
-    game?: GameUpdateOneWithoutCartItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutCartItemsNestedInput
   }
 
   export type CartItemUncheckedUpdateInput = {
@@ -10791,8 +11727,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     userID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type CartItemCreateManyInput = {
@@ -10800,8 +11735,7 @@ export namespace Prisma {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     userID: number
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type CartItemUpdateManyMutationInput = {
@@ -10814,16 +11748,14 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     userID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemCreateInput = {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     order: OrderCreateNestedOneWithoutOrderItemsInput
-    console?: ConsoleCreateNestedOneWithoutOrderItemsInput
-    game?: GameCreateNestedOneWithoutOrderItemsInput
+    product: ProductCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateInput = {
@@ -10831,16 +11763,14 @@ export namespace Prisma {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     orderID: number
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type OrderItemUpdateInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     order?: OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-    console?: ConsoleUpdateOneWithoutOrderItemsNestedInput
-    game?: GameUpdateOneWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateInput = {
@@ -10848,8 +11778,7 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemCreateManyInput = {
@@ -10857,8 +11786,7 @@ export namespace Prisma {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     orderID: number
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type OrderItemUpdateManyMutationInput = {
@@ -10871,16 +11799,14 @@ export namespace Prisma {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type CategoryCreateInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    consoles?: ConsoleCreateNestedManyWithoutCategoryInput
-    games?: GameCreateNestedManyWithoutCategoryInput
+    products?: ProductCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUncheckedCreateInput = {
@@ -10888,16 +11814,14 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    consoles?: ConsoleUncheckedCreateNestedManyWithoutCategoryInput
-    games?: GameUncheckedCreateNestedManyWithoutCategoryInput
+    products?: ProductUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoryUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    consoles?: ConsoleUpdateManyWithoutCategoryNestedInput
-    games?: GameUpdateManyWithoutCategoryNestedInput
+    products?: ProductUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryUncheckedUpdateInput = {
@@ -10905,8 +11829,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    consoles?: ConsoleUncheckedUpdateManyWithoutCategoryNestedInput
-    games?: GameUncheckedUpdateManyWithoutCategoryNestedInput
+    products?: ProductUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoryCreateManyInput = {
@@ -10929,6 +11852,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProductCreateInput = {
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutProductsInput
+    console?: ConsoleCreateNestedOneWithoutProductInput
+    game?: GameCreateNestedOneWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateInput = {
+    id?: number
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categoryID: number
+    console?: ConsoleUncheckedCreateNestedOneWithoutProductInput
+    game?: GameUncheckedCreateNestedOneWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUpdateInput = {
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    console?: ConsoleUpdateOneWithoutProductNestedInput
+    game?: GameUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryID?: IntFieldUpdateOperationsInput | number
+    console?: ConsoleUncheckedUpdateOneWithoutProductNestedInput
+    game?: GameUncheckedUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductCreateManyInput = {
+    id?: number
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categoryID: number
+  }
+
+  export type ProductUpdateManyMutationInput = {
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryID?: IntFieldUpdateOperationsInput | number
+  }
+
   export type ConsoleCreateInput = {
     brand: string
     model: string
@@ -10937,12 +11928,7 @@ export namespace Prisma {
     gpu?: string | null
     ram?: string | null
     resolution?: string | null
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutConsolesInput
-    cartItems?: CartItemCreateNestedManyWithoutConsoleInput
-    orderItems?: OrderItemCreateNestedManyWithoutConsoleInput
+    product: ProductCreateNestedOneWithoutConsoleInput
   }
 
   export type ConsoleUncheckedCreateInput = {
@@ -10954,12 +11940,7 @@ export namespace Prisma {
     gpu?: string | null
     ram?: string | null
     resolution?: string | null
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutConsoleInput
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutConsoleInput
+    productID: number
   }
 
   export type ConsoleUpdateInput = {
@@ -10970,12 +11951,7 @@ export namespace Prisma {
     gpu?: NullableStringFieldUpdateOperationsInput | string | null
     ram?: NullableStringFieldUpdateOperationsInput | string | null
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutConsolesNestedInput
-    cartItems?: CartItemUpdateManyWithoutConsoleNestedInput
-    orderItems?: OrderItemUpdateManyWithoutConsoleNestedInput
+    product?: ProductUpdateOneRequiredWithoutConsoleNestedInput
   }
 
   export type ConsoleUncheckedUpdateInput = {
@@ -10987,12 +11963,7 @@ export namespace Prisma {
     gpu?: NullableStringFieldUpdateOperationsInput | string | null
     ram?: NullableStringFieldUpdateOperationsInput | string | null
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
-    cartItems?: CartItemUncheckedUpdateManyWithoutConsoleNestedInput
-    orderItems?: OrderItemUncheckedUpdateManyWithoutConsoleNestedInput
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type ConsoleCreateManyInput = {
@@ -11004,10 +11975,7 @@ export namespace Prisma {
     gpu?: string | null
     ram?: string | null
     resolution?: string | null
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
+    productID: number
   }
 
   export type ConsoleUpdateManyMutationInput = {
@@ -11018,9 +11986,6 @@ export namespace Prisma {
     gpu?: NullableStringFieldUpdateOperationsInput | string | null
     ram?: NullableStringFieldUpdateOperationsInput | string | null
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConsoleUncheckedUpdateManyInput = {
@@ -11032,84 +11997,66 @@ export namespace Prisma {
     gpu?: NullableStringFieldUpdateOperationsInput | string | null
     ram?: NullableStringFieldUpdateOperationsInput | string | null
     resolution?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type GameCreateInput = {
     name: string
+    description: string
     platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutGamesInput
-    cartItems?: CartItemCreateNestedManyWithoutGameInput
-    orderItems?: OrderItemCreateNestedManyWithoutGameInput
+    genres: string
+    product: ProductCreateNestedOneWithoutGameInput
   }
 
   export type GameUncheckedCreateInput = {
     id?: number
     name: string
+    description: string
     platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutGameInput
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutGameInput
+    genres: string
+    productID: number
   }
 
   export type GameUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutGamesNestedInput
-    cartItems?: CartItemUpdateManyWithoutGameNestedInput
-    orderItems?: OrderItemUpdateManyWithoutGameNestedInput
+    genres?: StringFieldUpdateOperationsInput | string
+    product?: ProductUpdateOneRequiredWithoutGameNestedInput
   }
 
   export type GameUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
-    cartItems?: CartItemUncheckedUpdateManyWithoutGameNestedInput
-    orderItems?: OrderItemUncheckedUpdateManyWithoutGameNestedInput
+    genres?: StringFieldUpdateOperationsInput | string
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type GameCreateManyInput = {
     id?: number
     name: string
+    description: string
     platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
+    genres: string
+    productID: number
   }
 
   export type GameUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    genres?: StringFieldUpdateOperationsInput | string
   }
 
   export type GameUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
+    genres?: StringFieldUpdateOperationsInput | string
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11376,30 +12323,9 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type ConsoleNullableScalarRelationFilter = {
-    is?: ConsoleWhereInput | null
-    isNot?: ConsoleWhereInput | null
-  }
-
-  export type GameNullableScalarRelationFilter = {
-    is?: GameWhereInput | null
-    isNot?: GameWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type ProductScalarRelationFilter = {
+    is?: ProductWhereInput
+    isNot?: ProductWhereInput
   }
 
   export type CartItemCountOrderByAggregateInput = {
@@ -11407,8 +12333,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type CartItemAvgOrderByAggregateInput = {
@@ -11416,8 +12341,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type CartItemMaxOrderByAggregateInput = {
@@ -11425,8 +12349,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type CartItemMinOrderByAggregateInput = {
@@ -11434,8 +12357,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type CartItemSumOrderByAggregateInput = {
@@ -11443,24 +12365,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     userID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    productID?: SortOrder
   }
 
   export type OrderScalarRelationFilter = {
@@ -11473,8 +12378,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type OrderItemAvgOrderByAggregateInput = {
@@ -11482,8 +12386,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type OrderItemMaxOrderByAggregateInput = {
@@ -11491,8 +12394,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type OrderItemMinOrderByAggregateInput = {
@@ -11500,8 +12402,7 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
   export type OrderItemSumOrderByAggregateInput = {
@@ -11509,27 +12410,16 @@ export namespace Prisma {
     quantity?: SortOrder
     price?: SortOrder
     orderID?: SortOrder
-    consoleID?: SortOrder
-    gameID?: SortOrder
+    productID?: SortOrder
   }
 
-  export type ConsoleListRelationFilter = {
-    every?: ConsoleWhereInput
-    some?: ConsoleWhereInput
-    none?: ConsoleWhereInput
+  export type ProductListRelationFilter = {
+    every?: ProductWhereInput
+    some?: ProductWhereInput
+    none?: ProductWhereInput
   }
 
-  export type GameListRelationFilter = {
-    every?: GameWhereInput
-    some?: GameWhereInput
-    none?: GameWhereInput
-  }
-
-  export type ConsoleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type GameOrderByRelationAggregateInput = {
+  export type ProductOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11562,6 +12452,57 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
+  }
+
+  export type ConsoleNullableScalarRelationFilter = {
+    is?: ConsoleWhereInput | null
+    isNot?: ConsoleWhereInput | null
+  }
+
+  export type GameNullableScalarRelationFilter = {
+    is?: GameWhereInput | null
+    isNot?: GameWhereInput | null
+  }
+
+  export type ProductCountOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categoryID?: SortOrder
+  }
+
+  export type ProductAvgOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    categoryID?: SortOrder
+  }
+
+  export type ProductMaxOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categoryID?: SortOrder
+  }
+
+  export type ProductMinOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    categoryID?: SortOrder
+  }
+
+  export type ProductSumOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+    categoryID?: SortOrder
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -11577,9 +12518,9 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type CategoryScalarRelationFilter = {
-    is?: CategoryWhereInput
-    isNot?: CategoryWhereInput
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ConsoleModelStorageCompoundUniqueInput = {
@@ -11596,16 +12537,12 @@ export namespace Prisma {
     gpu?: SortOrder
     ram?: SortOrder
     resolution?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type ConsoleAvgOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type ConsoleMaxOrderByAggregateInput = {
@@ -11617,10 +12554,7 @@ export namespace Prisma {
     gpu?: SortOrder
     ram?: SortOrder
     resolution?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type ConsoleMinOrderByAggregateInput = {
@@ -11632,16 +12566,12 @@ export namespace Prisma {
     gpu?: SortOrder
     ram?: SortOrder
     resolution?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type ConsoleSumOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11670,43 +12600,38 @@ export namespace Prisma {
   export type GameCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     platform?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    genres?: SortOrder
+    productID?: SortOrder
   }
 
   export type GameAvgOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type GameMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     platform?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    genres?: SortOrder
+    productID?: SortOrder
   }
 
   export type GameMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    description?: SortOrder
     platform?: SortOrder
-    price?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    categoryID?: SortOrder
+    genres?: SortOrder
+    productID?: SortOrder
   }
 
   export type GameSumOrderByAggregateInput = {
     id?: SortOrder
-    price?: SortOrder
-    categoryID?: SortOrder
+    productID?: SortOrder
   }
 
   export type OrderCreateNestedManyWithoutUserInput = {
@@ -11887,16 +12812,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type ConsoleCreateNestedOneWithoutCartItemsInput = {
-    create?: XOR<ConsoleCreateWithoutCartItemsInput, ConsoleUncheckedCreateWithoutCartItemsInput>
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCartItemsInput
-    connect?: ConsoleWhereUniqueInput
-  }
-
-  export type GameCreateNestedOneWithoutCartItemsInput = {
-    create?: XOR<GameCreateWithoutCartItemsInput, GameUncheckedCreateWithoutCartItemsInput>
-    connectOrCreate?: GameCreateOrConnectWithoutCartItemsInput
-    connect?: GameWhereUniqueInput
+  export type ProductCreateNestedOneWithoutCartItemsInput = {
+    create?: XOR<ProductCreateWithoutCartItemsInput, ProductUncheckedCreateWithoutCartItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutCartItemsInput
+    connect?: ProductWhereUniqueInput
   }
 
   export type UserUpdateOneRequiredWithoutCartItemsNestedInput = {
@@ -11907,32 +12826,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutCartItemsInput, UserUpdateWithoutCartItemsInput>, UserUncheckedUpdateWithoutCartItemsInput>
   }
 
-  export type ConsoleUpdateOneWithoutCartItemsNestedInput = {
-    create?: XOR<ConsoleCreateWithoutCartItemsInput, ConsoleUncheckedCreateWithoutCartItemsInput>
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCartItemsInput
-    upsert?: ConsoleUpsertWithoutCartItemsInput
-    disconnect?: ConsoleWhereInput | boolean
-    delete?: ConsoleWhereInput | boolean
-    connect?: ConsoleWhereUniqueInput
-    update?: XOR<XOR<ConsoleUpdateToOneWithWhereWithoutCartItemsInput, ConsoleUpdateWithoutCartItemsInput>, ConsoleUncheckedUpdateWithoutCartItemsInput>
-  }
-
-  export type GameUpdateOneWithoutCartItemsNestedInput = {
-    create?: XOR<GameCreateWithoutCartItemsInput, GameUncheckedCreateWithoutCartItemsInput>
-    connectOrCreate?: GameCreateOrConnectWithoutCartItemsInput
-    upsert?: GameUpsertWithoutCartItemsInput
-    disconnect?: GameWhereInput | boolean
-    delete?: GameWhereInput | boolean
-    connect?: GameWhereUniqueInput
-    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutCartItemsInput, GameUpdateWithoutCartItemsInput>, GameUncheckedUpdateWithoutCartItemsInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type ProductUpdateOneRequiredWithoutCartItemsNestedInput = {
+    create?: XOR<ProductCreateWithoutCartItemsInput, ProductUncheckedCreateWithoutCartItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutCartItemsInput
+    upsert?: ProductUpsertWithoutCartItemsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutCartItemsInput, ProductUpdateWithoutCartItemsInput>, ProductUncheckedUpdateWithoutCartItemsInput>
   }
 
   export type OrderCreateNestedOneWithoutOrderItemsInput = {
@@ -11941,16 +12840,10 @@ export namespace Prisma {
     connect?: OrderWhereUniqueInput
   }
 
-  export type ConsoleCreateNestedOneWithoutOrderItemsInput = {
-    create?: XOR<ConsoleCreateWithoutOrderItemsInput, ConsoleUncheckedCreateWithoutOrderItemsInput>
-    connectOrCreate?: ConsoleCreateOrConnectWithoutOrderItemsInput
-    connect?: ConsoleWhereUniqueInput
-  }
-
-  export type GameCreateNestedOneWithoutOrderItemsInput = {
-    create?: XOR<GameCreateWithoutOrderItemsInput, GameUncheckedCreateWithoutOrderItemsInput>
-    connectOrCreate?: GameCreateOrConnectWithoutOrderItemsInput
-    connect?: GameWhereUniqueInput
+  export type ProductCreateNestedOneWithoutOrderItemsInput = {
+    create?: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutOrderItemsInput
+    connect?: ProductWhereUniqueInput
   }
 
   export type OrderUpdateOneRequiredWithoutOrderItemsNestedInput = {
@@ -11961,308 +12854,248 @@ export namespace Prisma {
     update?: XOR<XOR<OrderUpdateToOneWithWhereWithoutOrderItemsInput, OrderUpdateWithoutOrderItemsInput>, OrderUncheckedUpdateWithoutOrderItemsInput>
   }
 
-  export type ConsoleUpdateOneWithoutOrderItemsNestedInput = {
-    create?: XOR<ConsoleCreateWithoutOrderItemsInput, ConsoleUncheckedCreateWithoutOrderItemsInput>
-    connectOrCreate?: ConsoleCreateOrConnectWithoutOrderItemsInput
-    upsert?: ConsoleUpsertWithoutOrderItemsInput
-    disconnect?: ConsoleWhereInput | boolean
-    delete?: ConsoleWhereInput | boolean
-    connect?: ConsoleWhereUniqueInput
-    update?: XOR<XOR<ConsoleUpdateToOneWithWhereWithoutOrderItemsInput, ConsoleUpdateWithoutOrderItemsInput>, ConsoleUncheckedUpdateWithoutOrderItemsInput>
+  export type ProductUpdateOneRequiredWithoutOrderItemsNestedInput = {
+    create?: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutOrderItemsInput
+    upsert?: ProductUpsertWithoutOrderItemsInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutOrderItemsInput, ProductUpdateWithoutOrderItemsInput>, ProductUncheckedUpdateWithoutOrderItemsInput>
   }
 
-  export type GameUpdateOneWithoutOrderItemsNestedInput = {
-    create?: XOR<GameCreateWithoutOrderItemsInput, GameUncheckedCreateWithoutOrderItemsInput>
-    connectOrCreate?: GameCreateOrConnectWithoutOrderItemsInput
-    upsert?: GameUpsertWithoutOrderItemsInput
-    disconnect?: GameWhereInput | boolean
-    delete?: GameWhereInput | boolean
-    connect?: GameWhereUniqueInput
-    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutOrderItemsInput, GameUpdateWithoutOrderItemsInput>, GameUncheckedUpdateWithoutOrderItemsInput>
+  export type ProductCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
+    createMany?: ProductCreateManyCategoryInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
-  export type ConsoleCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput> | ConsoleCreateWithoutCategoryInput[] | ConsoleUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCategoryInput | ConsoleCreateOrConnectWithoutCategoryInput[]
-    createMany?: ConsoleCreateManyCategoryInputEnvelope
-    connect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
+  export type ProductUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
+    createMany?: ProductCreateManyCategoryInputEnvelope
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
   }
 
-  export type GameCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput> | GameCreateWithoutCategoryInput[] | GameUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: GameCreateOrConnectWithoutCategoryInput | GameCreateOrConnectWithoutCategoryInput[]
-    createMany?: GameCreateManyCategoryInputEnvelope
-    connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
+  export type ProductUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCategoryInput | ProductUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: ProductCreateManyCategoryInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCategoryInput | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCategoryInput | ProductUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
-  export type ConsoleUncheckedCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput> | ConsoleCreateWithoutCategoryInput[] | ConsoleUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCategoryInput | ConsoleCreateOrConnectWithoutCategoryInput[]
-    createMany?: ConsoleCreateManyCategoryInputEnvelope
-    connect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
+  export type ProductUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput> | ProductCreateWithoutCategoryInput[] | ProductUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: ProductCreateOrConnectWithoutCategoryInput | ProductCreateOrConnectWithoutCategoryInput[]
+    upsert?: ProductUpsertWithWhereUniqueWithoutCategoryInput | ProductUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: ProductCreateManyCategoryInputEnvelope
+    set?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    disconnect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    delete?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    connect?: ProductWhereUniqueInput | ProductWhereUniqueInput[]
+    update?: ProductUpdateWithWhereUniqueWithoutCategoryInput | ProductUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: ProductUpdateManyWithWhereWithoutCategoryInput | ProductUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: ProductScalarWhereInput | ProductScalarWhereInput[]
   }
 
-  export type GameUncheckedCreateNestedManyWithoutCategoryInput = {
-    create?: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput> | GameCreateWithoutCategoryInput[] | GameUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: GameCreateOrConnectWithoutCategoryInput | GameCreateOrConnectWithoutCategoryInput[]
-    createMany?: GameCreateManyCategoryInputEnvelope
-    connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
-  }
-
-  export type ConsoleUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput> | ConsoleCreateWithoutCategoryInput[] | ConsoleUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCategoryInput | ConsoleCreateOrConnectWithoutCategoryInput[]
-    upsert?: ConsoleUpsertWithWhereUniqueWithoutCategoryInput | ConsoleUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: ConsoleCreateManyCategoryInputEnvelope
-    set?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    disconnect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    delete?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    connect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    update?: ConsoleUpdateWithWhereUniqueWithoutCategoryInput | ConsoleUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: ConsoleUpdateManyWithWhereWithoutCategoryInput | ConsoleUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: ConsoleScalarWhereInput | ConsoleScalarWhereInput[]
-  }
-
-  export type GameUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput> | GameCreateWithoutCategoryInput[] | GameUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: GameCreateOrConnectWithoutCategoryInput | GameCreateOrConnectWithoutCategoryInput[]
-    upsert?: GameUpsertWithWhereUniqueWithoutCategoryInput | GameUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: GameCreateManyCategoryInputEnvelope
-    set?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    disconnect?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    delete?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    update?: GameUpdateWithWhereUniqueWithoutCategoryInput | GameUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: GameUpdateManyWithWhereWithoutCategoryInput | GameUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: GameScalarWhereInput | GameScalarWhereInput[]
-  }
-
-  export type ConsoleUncheckedUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput> | ConsoleCreateWithoutCategoryInput[] | ConsoleUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: ConsoleCreateOrConnectWithoutCategoryInput | ConsoleCreateOrConnectWithoutCategoryInput[]
-    upsert?: ConsoleUpsertWithWhereUniqueWithoutCategoryInput | ConsoleUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: ConsoleCreateManyCategoryInputEnvelope
-    set?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    disconnect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    delete?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    connect?: ConsoleWhereUniqueInput | ConsoleWhereUniqueInput[]
-    update?: ConsoleUpdateWithWhereUniqueWithoutCategoryInput | ConsoleUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: ConsoleUpdateManyWithWhereWithoutCategoryInput | ConsoleUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: ConsoleScalarWhereInput | ConsoleScalarWhereInput[]
-  }
-
-  export type GameUncheckedUpdateManyWithoutCategoryNestedInput = {
-    create?: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput> | GameCreateWithoutCategoryInput[] | GameUncheckedCreateWithoutCategoryInput[]
-    connectOrCreate?: GameCreateOrConnectWithoutCategoryInput | GameCreateOrConnectWithoutCategoryInput[]
-    upsert?: GameUpsertWithWhereUniqueWithoutCategoryInput | GameUpsertWithWhereUniqueWithoutCategoryInput[]
-    createMany?: GameCreateManyCategoryInputEnvelope
-    set?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    disconnect?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    delete?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    connect?: GameWhereUniqueInput | GameWhereUniqueInput[]
-    update?: GameUpdateWithWhereUniqueWithoutCategoryInput | GameUpdateWithWhereUniqueWithoutCategoryInput[]
-    updateMany?: GameUpdateManyWithWhereWithoutCategoryInput | GameUpdateManyWithWhereWithoutCategoryInput[]
-    deleteMany?: GameScalarWhereInput | GameScalarWhereInput[]
-  }
-
-  export type CategoryCreateNestedOneWithoutConsolesInput = {
-    create?: XOR<CategoryCreateWithoutConsolesInput, CategoryUncheckedCreateWithoutConsolesInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutConsolesInput
+  export type CategoryCreateNestedOneWithoutProductsInput = {
+    create?: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput
     connect?: CategoryWhereUniqueInput
   }
 
-  export type CartItemCreateNestedManyWithoutConsoleInput = {
-    create?: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput> | CartItemCreateWithoutConsoleInput[] | CartItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutConsoleInput | CartItemCreateOrConnectWithoutConsoleInput[]
-    createMany?: CartItemCreateManyConsoleInputEnvelope
+  export type ConsoleCreateNestedOneWithoutProductInput = {
+    create?: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
+    connectOrCreate?: ConsoleCreateOrConnectWithoutProductInput
+    connect?: ConsoleWhereUniqueInput
+  }
+
+  export type GameCreateNestedOneWithoutProductInput = {
+    create?: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
+    connectOrCreate?: GameCreateOrConnectWithoutProductInput
+    connect?: GameWhereUniqueInput
+  }
+
+  export type CartItemCreateNestedManyWithoutProductInput = {
+    create?: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput> | CartItemCreateWithoutProductInput[] | CartItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: CartItemCreateOrConnectWithoutProductInput | CartItemCreateOrConnectWithoutProductInput[]
+    createMany?: CartItemCreateManyProductInputEnvelope
     connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
   }
 
-  export type OrderItemCreateNestedManyWithoutConsoleInput = {
-    create?: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput> | OrderItemCreateWithoutConsoleInput[] | OrderItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutConsoleInput | OrderItemCreateOrConnectWithoutConsoleInput[]
-    createMany?: OrderItemCreateManyConsoleInputEnvelope
+  export type OrderItemCreateNestedManyWithoutProductInput = {
+    create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
+    createMany?: OrderItemCreateManyProductInputEnvelope
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
   }
 
-  export type CartItemUncheckedCreateNestedManyWithoutConsoleInput = {
-    create?: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput> | CartItemCreateWithoutConsoleInput[] | CartItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutConsoleInput | CartItemCreateOrConnectWithoutConsoleInput[]
-    createMany?: CartItemCreateManyConsoleInputEnvelope
+  export type ConsoleUncheckedCreateNestedOneWithoutProductInput = {
+    create?: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
+    connectOrCreate?: ConsoleCreateOrConnectWithoutProductInput
+    connect?: ConsoleWhereUniqueInput
+  }
+
+  export type GameUncheckedCreateNestedOneWithoutProductInput = {
+    create?: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
+    connectOrCreate?: GameCreateOrConnectWithoutProductInput
+    connect?: GameWhereUniqueInput
+  }
+
+  export type CartItemUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput> | CartItemCreateWithoutProductInput[] | CartItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: CartItemCreateOrConnectWithoutProductInput | CartItemCreateOrConnectWithoutProductInput[]
+    createMany?: CartItemCreateManyProductInputEnvelope
     connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
   }
 
-  export type OrderItemUncheckedCreateNestedManyWithoutConsoleInput = {
-    create?: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput> | OrderItemCreateWithoutConsoleInput[] | OrderItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutConsoleInput | OrderItemCreateOrConnectWithoutConsoleInput[]
-    createMany?: OrderItemCreateManyConsoleInputEnvelope
+  export type OrderItemUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
+    createMany?: OrderItemCreateManyProductInputEnvelope
     connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+  }
+
+  export type CategoryUpdateOneRequiredWithoutProductsNestedInput = {
+    create?: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutProductsInput
+    upsert?: CategoryUpsertWithoutProductsInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutProductsInput, CategoryUpdateWithoutProductsInput>, CategoryUncheckedUpdateWithoutProductsInput>
+  }
+
+  export type ConsoleUpdateOneWithoutProductNestedInput = {
+    create?: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
+    connectOrCreate?: ConsoleCreateOrConnectWithoutProductInput
+    upsert?: ConsoleUpsertWithoutProductInput
+    disconnect?: ConsoleWhereInput | boolean
+    delete?: ConsoleWhereInput | boolean
+    connect?: ConsoleWhereUniqueInput
+    update?: XOR<XOR<ConsoleUpdateToOneWithWhereWithoutProductInput, ConsoleUpdateWithoutProductInput>, ConsoleUncheckedUpdateWithoutProductInput>
+  }
+
+  export type GameUpdateOneWithoutProductNestedInput = {
+    create?: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
+    connectOrCreate?: GameCreateOrConnectWithoutProductInput
+    upsert?: GameUpsertWithoutProductInput
+    disconnect?: GameWhereInput | boolean
+    delete?: GameWhereInput | boolean
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutProductInput, GameUpdateWithoutProductInput>, GameUncheckedUpdateWithoutProductInput>
+  }
+
+  export type CartItemUpdateManyWithoutProductNestedInput = {
+    create?: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput> | CartItemCreateWithoutProductInput[] | CartItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: CartItemCreateOrConnectWithoutProductInput | CartItemCreateOrConnectWithoutProductInput[]
+    upsert?: CartItemUpsertWithWhereUniqueWithoutProductInput | CartItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: CartItemCreateManyProductInputEnvelope
+    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    update?: CartItemUpdateWithWhereUniqueWithoutProductInput | CartItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: CartItemUpdateManyWithWhereWithoutProductInput | CartItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
+  }
+
+  export type OrderItemUpdateManyWithoutProductNestedInput = {
+    create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
+    upsert?: OrderItemUpsertWithWhereUniqueWithoutProductInput | OrderItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: OrderItemCreateManyProductInputEnvelope
+    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    update?: OrderItemUpdateWithWhereUniqueWithoutProductInput | OrderItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: OrderItemUpdateManyWithWhereWithoutProductInput | OrderItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
+  }
+
+  export type ConsoleUncheckedUpdateOneWithoutProductNestedInput = {
+    create?: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
+    connectOrCreate?: ConsoleCreateOrConnectWithoutProductInput
+    upsert?: ConsoleUpsertWithoutProductInput
+    disconnect?: ConsoleWhereInput | boolean
+    delete?: ConsoleWhereInput | boolean
+    connect?: ConsoleWhereUniqueInput
+    update?: XOR<XOR<ConsoleUpdateToOneWithWhereWithoutProductInput, ConsoleUpdateWithoutProductInput>, ConsoleUncheckedUpdateWithoutProductInput>
+  }
+
+  export type GameUncheckedUpdateOneWithoutProductNestedInput = {
+    create?: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
+    connectOrCreate?: GameCreateOrConnectWithoutProductInput
+    upsert?: GameUpsertWithoutProductInput
+    disconnect?: GameWhereInput | boolean
+    delete?: GameWhereInput | boolean
+    connect?: GameWhereUniqueInput
+    update?: XOR<XOR<GameUpdateToOneWithWhereWithoutProductInput, GameUpdateWithoutProductInput>, GameUncheckedUpdateWithoutProductInput>
+  }
+
+  export type CartItemUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput> | CartItemCreateWithoutProductInput[] | CartItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: CartItemCreateOrConnectWithoutProductInput | CartItemCreateOrConnectWithoutProductInput[]
+    upsert?: CartItemUpsertWithWhereUniqueWithoutProductInput | CartItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: CartItemCreateManyProductInputEnvelope
+    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
+    update?: CartItemUpdateWithWhereUniqueWithoutProductInput | CartItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: CartItemUpdateManyWithWhereWithoutProductInput | CartItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
+  }
+
+  export type OrderItemUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput> | OrderItemCreateWithoutProductInput[] | OrderItemUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: OrderItemCreateOrConnectWithoutProductInput | OrderItemCreateOrConnectWithoutProductInput[]
+    upsert?: OrderItemUpsertWithWhereUniqueWithoutProductInput | OrderItemUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: OrderItemCreateManyProductInputEnvelope
+    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
+    update?: OrderItemUpdateWithWhereUniqueWithoutProductInput | OrderItemUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: OrderItemUpdateManyWithWhereWithoutProductInput | OrderItemUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
+  }
+
+  export type ProductCreateNestedOneWithoutConsoleInput = {
+    create?: XOR<ProductCreateWithoutConsoleInput, ProductUncheckedCreateWithoutConsoleInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutConsoleInput
+    connect?: ProductWhereUniqueInput
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
-  export type CategoryUpdateOneRequiredWithoutConsolesNestedInput = {
-    create?: XOR<CategoryCreateWithoutConsolesInput, CategoryUncheckedCreateWithoutConsolesInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutConsolesInput
-    upsert?: CategoryUpsertWithoutConsolesInput
-    connect?: CategoryWhereUniqueInput
-    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutConsolesInput, CategoryUpdateWithoutConsolesInput>, CategoryUncheckedUpdateWithoutConsolesInput>
+  export type ProductUpdateOneRequiredWithoutConsoleNestedInput = {
+    create?: XOR<ProductCreateWithoutConsoleInput, ProductUncheckedCreateWithoutConsoleInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutConsoleInput
+    upsert?: ProductUpsertWithoutConsoleInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutConsoleInput, ProductUpdateWithoutConsoleInput>, ProductUncheckedUpdateWithoutConsoleInput>
   }
 
-  export type CartItemUpdateManyWithoutConsoleNestedInput = {
-    create?: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput> | CartItemCreateWithoutConsoleInput[] | CartItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutConsoleInput | CartItemCreateOrConnectWithoutConsoleInput[]
-    upsert?: CartItemUpsertWithWhereUniqueWithoutConsoleInput | CartItemUpsertWithWhereUniqueWithoutConsoleInput[]
-    createMany?: CartItemCreateManyConsoleInputEnvelope
-    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    update?: CartItemUpdateWithWhereUniqueWithoutConsoleInput | CartItemUpdateWithWhereUniqueWithoutConsoleInput[]
-    updateMany?: CartItemUpdateManyWithWhereWithoutConsoleInput | CartItemUpdateManyWithWhereWithoutConsoleInput[]
-    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
+  export type ProductCreateNestedOneWithoutGameInput = {
+    create?: XOR<ProductCreateWithoutGameInput, ProductUncheckedCreateWithoutGameInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutGameInput
+    connect?: ProductWhereUniqueInput
   }
 
-  export type OrderItemUpdateManyWithoutConsoleNestedInput = {
-    create?: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput> | OrderItemCreateWithoutConsoleInput[] | OrderItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutConsoleInput | OrderItemCreateOrConnectWithoutConsoleInput[]
-    upsert?: OrderItemUpsertWithWhereUniqueWithoutConsoleInput | OrderItemUpsertWithWhereUniqueWithoutConsoleInput[]
-    createMany?: OrderItemCreateManyConsoleInputEnvelope
-    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    update?: OrderItemUpdateWithWhereUniqueWithoutConsoleInput | OrderItemUpdateWithWhereUniqueWithoutConsoleInput[]
-    updateMany?: OrderItemUpdateManyWithWhereWithoutConsoleInput | OrderItemUpdateManyWithWhereWithoutConsoleInput[]
-    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
-  }
-
-  export type CartItemUncheckedUpdateManyWithoutConsoleNestedInput = {
-    create?: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput> | CartItemCreateWithoutConsoleInput[] | CartItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutConsoleInput | CartItemCreateOrConnectWithoutConsoleInput[]
-    upsert?: CartItemUpsertWithWhereUniqueWithoutConsoleInput | CartItemUpsertWithWhereUniqueWithoutConsoleInput[]
-    createMany?: CartItemCreateManyConsoleInputEnvelope
-    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    update?: CartItemUpdateWithWhereUniqueWithoutConsoleInput | CartItemUpdateWithWhereUniqueWithoutConsoleInput[]
-    updateMany?: CartItemUpdateManyWithWhereWithoutConsoleInput | CartItemUpdateManyWithWhereWithoutConsoleInput[]
-    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
-  }
-
-  export type OrderItemUncheckedUpdateManyWithoutConsoleNestedInput = {
-    create?: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput> | OrderItemCreateWithoutConsoleInput[] | OrderItemUncheckedCreateWithoutConsoleInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutConsoleInput | OrderItemCreateOrConnectWithoutConsoleInput[]
-    upsert?: OrderItemUpsertWithWhereUniqueWithoutConsoleInput | OrderItemUpsertWithWhereUniqueWithoutConsoleInput[]
-    createMany?: OrderItemCreateManyConsoleInputEnvelope
-    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    update?: OrderItemUpdateWithWhereUniqueWithoutConsoleInput | OrderItemUpdateWithWhereUniqueWithoutConsoleInput[]
-    updateMany?: OrderItemUpdateManyWithWhereWithoutConsoleInput | OrderItemUpdateManyWithWhereWithoutConsoleInput[]
-    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
-  }
-
-  export type CategoryCreateNestedOneWithoutGamesInput = {
-    create?: XOR<CategoryCreateWithoutGamesInput, CategoryUncheckedCreateWithoutGamesInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutGamesInput
-    connect?: CategoryWhereUniqueInput
-  }
-
-  export type CartItemCreateNestedManyWithoutGameInput = {
-    create?: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput> | CartItemCreateWithoutGameInput[] | CartItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutGameInput | CartItemCreateOrConnectWithoutGameInput[]
-    createMany?: CartItemCreateManyGameInputEnvelope
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-  }
-
-  export type OrderItemCreateNestedManyWithoutGameInput = {
-    create?: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput> | OrderItemCreateWithoutGameInput[] | OrderItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutGameInput | OrderItemCreateOrConnectWithoutGameInput[]
-    createMany?: OrderItemCreateManyGameInputEnvelope
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-  }
-
-  export type CartItemUncheckedCreateNestedManyWithoutGameInput = {
-    create?: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput> | CartItemCreateWithoutGameInput[] | CartItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutGameInput | CartItemCreateOrConnectWithoutGameInput[]
-    createMany?: CartItemCreateManyGameInputEnvelope
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-  }
-
-  export type OrderItemUncheckedCreateNestedManyWithoutGameInput = {
-    create?: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput> | OrderItemCreateWithoutGameInput[] | OrderItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutGameInput | OrderItemCreateOrConnectWithoutGameInput[]
-    createMany?: OrderItemCreateManyGameInputEnvelope
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-  }
-
-  export type CategoryUpdateOneRequiredWithoutGamesNestedInput = {
-    create?: XOR<CategoryCreateWithoutGamesInput, CategoryUncheckedCreateWithoutGamesInput>
-    connectOrCreate?: CategoryCreateOrConnectWithoutGamesInput
-    upsert?: CategoryUpsertWithoutGamesInput
-    connect?: CategoryWhereUniqueInput
-    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutGamesInput, CategoryUpdateWithoutGamesInput>, CategoryUncheckedUpdateWithoutGamesInput>
-  }
-
-  export type CartItemUpdateManyWithoutGameNestedInput = {
-    create?: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput> | CartItemCreateWithoutGameInput[] | CartItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutGameInput | CartItemCreateOrConnectWithoutGameInput[]
-    upsert?: CartItemUpsertWithWhereUniqueWithoutGameInput | CartItemUpsertWithWhereUniqueWithoutGameInput[]
-    createMany?: CartItemCreateManyGameInputEnvelope
-    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    update?: CartItemUpdateWithWhereUniqueWithoutGameInput | CartItemUpdateWithWhereUniqueWithoutGameInput[]
-    updateMany?: CartItemUpdateManyWithWhereWithoutGameInput | CartItemUpdateManyWithWhereWithoutGameInput[]
-    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
-  }
-
-  export type OrderItemUpdateManyWithoutGameNestedInput = {
-    create?: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput> | OrderItemCreateWithoutGameInput[] | OrderItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutGameInput | OrderItemCreateOrConnectWithoutGameInput[]
-    upsert?: OrderItemUpsertWithWhereUniqueWithoutGameInput | OrderItemUpsertWithWhereUniqueWithoutGameInput[]
-    createMany?: OrderItemCreateManyGameInputEnvelope
-    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    update?: OrderItemUpdateWithWhereUniqueWithoutGameInput | OrderItemUpdateWithWhereUniqueWithoutGameInput[]
-    updateMany?: OrderItemUpdateManyWithWhereWithoutGameInput | OrderItemUpdateManyWithWhereWithoutGameInput[]
-    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
-  }
-
-  export type CartItemUncheckedUpdateManyWithoutGameNestedInput = {
-    create?: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput> | CartItemCreateWithoutGameInput[] | CartItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: CartItemCreateOrConnectWithoutGameInput | CartItemCreateOrConnectWithoutGameInput[]
-    upsert?: CartItemUpsertWithWhereUniqueWithoutGameInput | CartItemUpsertWithWhereUniqueWithoutGameInput[]
-    createMany?: CartItemCreateManyGameInputEnvelope
-    set?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    disconnect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    delete?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    connect?: CartItemWhereUniqueInput | CartItemWhereUniqueInput[]
-    update?: CartItemUpdateWithWhereUniqueWithoutGameInput | CartItemUpdateWithWhereUniqueWithoutGameInput[]
-    updateMany?: CartItemUpdateManyWithWhereWithoutGameInput | CartItemUpdateManyWithWhereWithoutGameInput[]
-    deleteMany?: CartItemScalarWhereInput | CartItemScalarWhereInput[]
-  }
-
-  export type OrderItemUncheckedUpdateManyWithoutGameNestedInput = {
-    create?: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput> | OrderItemCreateWithoutGameInput[] | OrderItemUncheckedCreateWithoutGameInput[]
-    connectOrCreate?: OrderItemCreateOrConnectWithoutGameInput | OrderItemCreateOrConnectWithoutGameInput[]
-    upsert?: OrderItemUpsertWithWhereUniqueWithoutGameInput | OrderItemUpsertWithWhereUniqueWithoutGameInput[]
-    createMany?: OrderItemCreateManyGameInputEnvelope
-    set?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    disconnect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    delete?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    connect?: OrderItemWhereUniqueInput | OrderItemWhereUniqueInput[]
-    update?: OrderItemUpdateWithWhereUniqueWithoutGameInput | OrderItemUpdateWithWhereUniqueWithoutGameInput[]
-    updateMany?: OrderItemUpdateManyWithWhereWithoutGameInput | OrderItemUpdateManyWithWhereWithoutGameInput[]
-    deleteMany?: OrderItemScalarWhereInput | OrderItemScalarWhereInput[]
+  export type ProductUpdateOneRequiredWithoutGameNestedInput = {
+    create?: XOR<ProductCreateWithoutGameInput, ProductUncheckedCreateWithoutGameInput>
+    connectOrCreate?: ProductCreateOrConnectWithoutGameInput
+    upsert?: ProductUpsertWithoutGameInput
+    connect?: ProductWhereUniqueInput
+    update?: XOR<XOR<ProductUpdateToOneWithWhereWithoutGameInput, ProductUpdateWithoutGameInput>, ProductUncheckedUpdateWithoutGameInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -12420,44 +13253,6 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12487,6 +13282,17 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type OrderCreateWithoutUserInput = {
@@ -12521,16 +13327,14 @@ export namespace Prisma {
   export type CartItemCreateWithoutUserInput = {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    console?: ConsoleCreateNestedOneWithoutCartItemsInput
-    game?: GameCreateNestedOneWithoutCartItemsInput
+    product: ProductCreateNestedOneWithoutCartItemsInput
   }
 
   export type CartItemUncheckedCreateWithoutUserInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type CartItemCreateOrConnectWithoutUserInput = {
@@ -12596,8 +13400,7 @@ export namespace Prisma {
     quantity?: IntFilter<"CartItem"> | number
     price?: DecimalFilter<"CartItem"> | Decimal | DecimalJsLike | number | string
     userID?: IntFilter<"CartItem"> | number
-    consoleID?: IntNullableFilter<"CartItem"> | number | null
-    gameID?: IntNullableFilter<"CartItem"> | number | null
+    productID?: IntFilter<"CartItem"> | number
   }
 
   export type UserCreateWithoutOrdersInput = {
@@ -12631,16 +13434,14 @@ export namespace Prisma {
   export type OrderItemCreateWithoutOrderInput = {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    console?: ConsoleCreateNestedOneWithoutOrderItemsInput
-    game?: GameCreateNestedOneWithoutOrderItemsInput
+    product: ProductCreateNestedOneWithoutOrderItemsInput
   }
 
   export type OrderItemUncheckedCreateWithoutOrderInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type OrderItemCreateOrConnectWithoutOrderInput = {
@@ -12711,8 +13512,7 @@ export namespace Prisma {
     quantity?: IntFilter<"OrderItem"> | number
     price?: DecimalFilter<"OrderItem"> | Decimal | DecimalJsLike | number | string
     orderID?: IntFilter<"OrderItem"> | number
-    consoleID?: IntNullableFilter<"OrderItem"> | number | null
-    gameID?: IntNullableFilter<"OrderItem"> | number | null
+    productID?: IntFilter<"OrderItem"> | number
   }
 
   export type UserCreateWithoutCartItemsInput = {
@@ -12743,66 +13543,30 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutCartItemsInput, UserUncheckedCreateWithoutCartItemsInput>
   }
 
-  export type ConsoleCreateWithoutCartItemsInput = {
-    brand: string
-    model: string
-    storage: string
-    cpu?: string | null
-    gpu?: string | null
-    ram?: string | null
-    resolution?: string | null
+  export type ProductCreateWithoutCartItemsInput = {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutConsolesInput
-    orderItems?: OrderItemCreateNestedManyWithoutConsoleInput
+    category: CategoryCreateNestedOneWithoutProductsInput
+    console?: ConsoleCreateNestedOneWithoutProductInput
+    game?: GameCreateNestedOneWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
   }
 
-  export type ConsoleUncheckedCreateWithoutCartItemsInput = {
+  export type ProductUncheckedCreateWithoutCartItemsInput = {
     id?: number
-    brand: string
-    model: string
-    storage: string
-    cpu?: string | null
-    gpu?: string | null
-    ram?: string | null
-    resolution?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryID: number
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutConsoleInput
+    console?: ConsoleUncheckedCreateNestedOneWithoutProductInput
+    game?: GameUncheckedCreateNestedOneWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type ConsoleCreateOrConnectWithoutCartItemsInput = {
-    where: ConsoleWhereUniqueInput
-    create: XOR<ConsoleCreateWithoutCartItemsInput, ConsoleUncheckedCreateWithoutCartItemsInput>
-  }
-
-  export type GameCreateWithoutCartItemsInput = {
-    name: string
-    platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutGamesInput
-    orderItems?: OrderItemCreateNestedManyWithoutGameInput
-  }
-
-  export type GameUncheckedCreateWithoutCartItemsInput = {
-    id?: number
-    name: string
-    platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutGameInput
-  }
-
-  export type GameCreateOrConnectWithoutCartItemsInput = {
-    where: GameWhereUniqueInput
-    create: XOR<GameCreateWithoutCartItemsInput, GameUncheckedCreateWithoutCartItemsInput>
+  export type ProductCreateOrConnectWithoutCartItemsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutCartItemsInput, ProductUncheckedCreateWithoutCartItemsInput>
   }
 
   export type UserUpsertWithoutCartItemsInput = {
@@ -12839,78 +13603,36 @@ export namespace Prisma {
     orders?: OrderUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type ConsoleUpsertWithoutCartItemsInput = {
-    update: XOR<ConsoleUpdateWithoutCartItemsInput, ConsoleUncheckedUpdateWithoutCartItemsInput>
-    create: XOR<ConsoleCreateWithoutCartItemsInput, ConsoleUncheckedCreateWithoutCartItemsInput>
-    where?: ConsoleWhereInput
+  export type ProductUpsertWithoutCartItemsInput = {
+    update: XOR<ProductUpdateWithoutCartItemsInput, ProductUncheckedUpdateWithoutCartItemsInput>
+    create: XOR<ProductCreateWithoutCartItemsInput, ProductUncheckedCreateWithoutCartItemsInput>
+    where?: ProductWhereInput
   }
 
-  export type ConsoleUpdateToOneWithWhereWithoutCartItemsInput = {
-    where?: ConsoleWhereInput
-    data: XOR<ConsoleUpdateWithoutCartItemsInput, ConsoleUncheckedUpdateWithoutCartItemsInput>
+  export type ProductUpdateToOneWithWhereWithoutCartItemsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutCartItemsInput, ProductUncheckedUpdateWithoutCartItemsInput>
   }
 
-  export type ConsoleUpdateWithoutCartItemsInput = {
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+  export type ProductUpdateWithoutCartItemsInput = {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutConsolesNestedInput
-    orderItems?: OrderItemUpdateManyWithoutConsoleNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    console?: ConsoleUpdateOneWithoutProductNestedInput
+    game?: GameUpdateOneWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
   }
 
-  export type ConsoleUncheckedUpdateWithoutCartItemsInput = {
+  export type ProductUncheckedUpdateWithoutCartItemsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryID?: IntFieldUpdateOperationsInput | number
-    orderItems?: OrderItemUncheckedUpdateManyWithoutConsoleNestedInput
-  }
-
-  export type GameUpsertWithoutCartItemsInput = {
-    update: XOR<GameUpdateWithoutCartItemsInput, GameUncheckedUpdateWithoutCartItemsInput>
-    create: XOR<GameCreateWithoutCartItemsInput, GameUncheckedCreateWithoutCartItemsInput>
-    where?: GameWhereInput
-  }
-
-  export type GameUpdateToOneWithWhereWithoutCartItemsInput = {
-    where?: GameWhereInput
-    data: XOR<GameUpdateWithoutCartItemsInput, GameUncheckedUpdateWithoutCartItemsInput>
-  }
-
-  export type GameUpdateWithoutCartItemsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutGamesNestedInput
-    orderItems?: OrderItemUpdateManyWithoutGameNestedInput
-  }
-
-  export type GameUncheckedUpdateWithoutCartItemsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
-    orderItems?: OrderItemUncheckedUpdateManyWithoutGameNestedInput
+    console?: ConsoleUncheckedUpdateOneWithoutProductNestedInput
+    game?: GameUncheckedUpdateOneWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderCreateWithoutOrderItemsInput = {
@@ -12937,66 +13659,30 @@ export namespace Prisma {
     create: XOR<OrderCreateWithoutOrderItemsInput, OrderUncheckedCreateWithoutOrderItemsInput>
   }
 
-  export type ConsoleCreateWithoutOrderItemsInput = {
-    brand: string
-    model: string
-    storage: string
-    cpu?: string | null
-    gpu?: string | null
-    ram?: string | null
-    resolution?: string | null
+  export type ProductCreateWithoutOrderItemsInput = {
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutConsolesInput
-    cartItems?: CartItemCreateNestedManyWithoutConsoleInput
+    category: CategoryCreateNestedOneWithoutProductsInput
+    console?: ConsoleCreateNestedOneWithoutProductInput
+    game?: GameCreateNestedOneWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
   }
 
-  export type ConsoleUncheckedCreateWithoutOrderItemsInput = {
+  export type ProductUncheckedCreateWithoutOrderItemsInput = {
     id?: number
-    brand: string
-    model: string
-    storage: string
-    cpu?: string | null
-    gpu?: string | null
-    ram?: string | null
-    resolution?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
     categoryID: number
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutConsoleInput
+    console?: ConsoleUncheckedCreateNestedOneWithoutProductInput
+    game?: GameUncheckedCreateNestedOneWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type ConsoleCreateOrConnectWithoutOrderItemsInput = {
-    where: ConsoleWhereUniqueInput
-    create: XOR<ConsoleCreateWithoutOrderItemsInput, ConsoleUncheckedCreateWithoutOrderItemsInput>
-  }
-
-  export type GameCreateWithoutOrderItemsInput = {
-    name: string
-    platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    category: CategoryCreateNestedOneWithoutGamesInput
-    cartItems?: CartItemCreateNestedManyWithoutGameInput
-  }
-
-  export type GameUncheckedCreateWithoutOrderItemsInput = {
-    id?: number
-    name: string
-    platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    categoryID: number
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutGameInput
-  }
-
-  export type GameCreateOrConnectWithoutOrderItemsInput = {
-    where: GameWhereUniqueInput
-    create: XOR<GameCreateWithoutOrderItemsInput, GameUncheckedCreateWithoutOrderItemsInput>
+  export type ProductCreateOrConnectWithoutOrderItemsInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
   }
 
   export type OrderUpsertWithoutOrderItemsInput = {
@@ -13029,81 +13715,115 @@ export namespace Prisma {
     userID?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ConsoleUpsertWithoutOrderItemsInput = {
-    update: XOR<ConsoleUpdateWithoutOrderItemsInput, ConsoleUncheckedUpdateWithoutOrderItemsInput>
-    create: XOR<ConsoleCreateWithoutOrderItemsInput, ConsoleUncheckedCreateWithoutOrderItemsInput>
-    where?: ConsoleWhereInput
+  export type ProductUpsertWithoutOrderItemsInput = {
+    update: XOR<ProductUpdateWithoutOrderItemsInput, ProductUncheckedUpdateWithoutOrderItemsInput>
+    create: XOR<ProductCreateWithoutOrderItemsInput, ProductUncheckedCreateWithoutOrderItemsInput>
+    where?: ProductWhereInput
   }
 
-  export type ConsoleUpdateToOneWithWhereWithoutOrderItemsInput = {
-    where?: ConsoleWhereInput
-    data: XOR<ConsoleUpdateWithoutOrderItemsInput, ConsoleUncheckedUpdateWithoutOrderItemsInput>
+  export type ProductUpdateToOneWithWhereWithoutOrderItemsInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutOrderItemsInput, ProductUncheckedUpdateWithoutOrderItemsInput>
   }
 
-  export type ConsoleUpdateWithoutOrderItemsInput = {
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+  export type ProductUpdateWithoutOrderItemsInput = {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutConsolesNestedInput
-    cartItems?: CartItemUpdateManyWithoutConsoleNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    console?: ConsoleUpdateOneWithoutProductNestedInput
+    game?: GameUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
   }
 
-  export type ConsoleUncheckedUpdateWithoutOrderItemsInput = {
+  export type ProductUncheckedUpdateWithoutOrderItemsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categoryID?: IntFieldUpdateOperationsInput | number
-    cartItems?: CartItemUncheckedUpdateManyWithoutConsoleNestedInput
+    console?: ConsoleUncheckedUpdateOneWithoutProductNestedInput
+    game?: GameUncheckedUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type GameUpsertWithoutOrderItemsInput = {
-    update: XOR<GameUpdateWithoutOrderItemsInput, GameUncheckedUpdateWithoutOrderItemsInput>
-    create: XOR<GameCreateWithoutOrderItemsInput, GameUncheckedCreateWithoutOrderItemsInput>
-    where?: GameWhereInput
+  export type ProductCreateWithoutCategoryInput = {
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    console?: ConsoleCreateNestedOneWithoutProductInput
+    game?: GameCreateNestedOneWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
   }
 
-  export type GameUpdateToOneWithWhereWithoutOrderItemsInput = {
-    where?: GameWhereInput
-    data: XOR<GameUpdateWithoutOrderItemsInput, GameUncheckedUpdateWithoutOrderItemsInput>
+  export type ProductUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    console?: ConsoleUncheckedCreateNestedOneWithoutProductInput
+    game?: GameUncheckedCreateNestedOneWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type GameUpdateWithoutOrderItemsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category?: CategoryUpdateOneRequiredWithoutGamesNestedInput
-    cartItems?: CartItemUpdateManyWithoutGameNestedInput
+  export type ProductCreateOrConnectWithoutCategoryInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput>
   }
 
-  export type GameUncheckedUpdateWithoutOrderItemsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryID?: IntFieldUpdateOperationsInput | number
-    cartItems?: CartItemUncheckedUpdateManyWithoutGameNestedInput
+  export type ProductCreateManyCategoryInputEnvelope = {
+    data: ProductCreateManyCategoryInput | ProductCreateManyCategoryInput[]
+    skipDuplicates?: boolean
   }
 
-  export type ConsoleCreateWithoutCategoryInput = {
+  export type ProductUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: ProductWhereUniqueInput
+    update: XOR<ProductUpdateWithoutCategoryInput, ProductUncheckedUpdateWithoutCategoryInput>
+    create: XOR<ProductCreateWithoutCategoryInput, ProductUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type ProductUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: ProductWhereUniqueInput
+    data: XOR<ProductUpdateWithoutCategoryInput, ProductUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type ProductUpdateManyWithWhereWithoutCategoryInput = {
+    where: ProductScalarWhereInput
+    data: XOR<ProductUpdateManyMutationInput, ProductUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type ProductScalarWhereInput = {
+    AND?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    OR?: ProductScalarWhereInput[]
+    NOT?: ProductScalarWhereInput | ProductScalarWhereInput[]
+    id?: IntFilter<"Product"> | number
+    price?: DecimalFilter<"Product"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"Product"> | Date | string
+    updatedAt?: DateTimeFilter<"Product"> | Date | string
+    categoryID?: IntFilter<"Product"> | number
+  }
+
+  export type CategoryCreateWithoutProductsInput = {
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CategoryUncheckedCreateWithoutProductsInput = {
+    id?: number
+    name: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CategoryCreateOrConnectWithoutProductsInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
+  }
+
+  export type ConsoleCreateWithoutProductInput = {
     brand: string
     model: string
     storage: string
@@ -13111,14 +13831,9 @@ export namespace Prisma {
     gpu?: string | null
     ram?: string | null
     resolution?: string | null
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    cartItems?: CartItemCreateNestedManyWithoutConsoleInput
-    orderItems?: OrderItemCreateNestedManyWithoutConsoleInput
   }
 
-  export type ConsoleUncheckedCreateWithoutCategoryInput = {
+  export type ConsoleUncheckedCreateWithoutProductInput = {
     id?: number
     brand: string
     model: string
@@ -13127,371 +13842,307 @@ export namespace Prisma {
     gpu?: string | null
     ram?: string | null
     resolution?: string | null
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutConsoleInput
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutConsoleInput
   }
 
-  export type ConsoleCreateOrConnectWithoutCategoryInput = {
+  export type ConsoleCreateOrConnectWithoutProductInput = {
     where: ConsoleWhereUniqueInput
-    create: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput>
+    create: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
   }
 
-  export type ConsoleCreateManyCategoryInputEnvelope = {
-    data: ConsoleCreateManyCategoryInput | ConsoleCreateManyCategoryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type GameCreateWithoutCategoryInput = {
+  export type GameCreateWithoutProductInput = {
     name: string
+    description: string
     platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    cartItems?: CartItemCreateNestedManyWithoutGameInput
-    orderItems?: OrderItemCreateNestedManyWithoutGameInput
+    genres: string
   }
 
-  export type GameUncheckedCreateWithoutCategoryInput = {
+  export type GameUncheckedCreateWithoutProductInput = {
     id?: number
     name: string
+    description: string
     platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    cartItems?: CartItemUncheckedCreateNestedManyWithoutGameInput
-    orderItems?: OrderItemUncheckedCreateNestedManyWithoutGameInput
+    genres: string
   }
 
-  export type GameCreateOrConnectWithoutCategoryInput = {
+  export type GameCreateOrConnectWithoutProductInput = {
     where: GameWhereUniqueInput
-    create: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput>
+    create: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
   }
 
-  export type GameCreateManyCategoryInputEnvelope = {
-    data: GameCreateManyCategoryInput | GameCreateManyCategoryInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ConsoleUpsertWithWhereUniqueWithoutCategoryInput = {
-    where: ConsoleWhereUniqueInput
-    update: XOR<ConsoleUpdateWithoutCategoryInput, ConsoleUncheckedUpdateWithoutCategoryInput>
-    create: XOR<ConsoleCreateWithoutCategoryInput, ConsoleUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type ConsoleUpdateWithWhereUniqueWithoutCategoryInput = {
-    where: ConsoleWhereUniqueInput
-    data: XOR<ConsoleUpdateWithoutCategoryInput, ConsoleUncheckedUpdateWithoutCategoryInput>
-  }
-
-  export type ConsoleUpdateManyWithWhereWithoutCategoryInput = {
-    where: ConsoleScalarWhereInput
-    data: XOR<ConsoleUpdateManyMutationInput, ConsoleUncheckedUpdateManyWithoutCategoryInput>
-  }
-
-  export type ConsoleScalarWhereInput = {
-    AND?: ConsoleScalarWhereInput | ConsoleScalarWhereInput[]
-    OR?: ConsoleScalarWhereInput[]
-    NOT?: ConsoleScalarWhereInput | ConsoleScalarWhereInput[]
-    id?: IntFilter<"Console"> | number
-    brand?: StringFilter<"Console"> | string
-    model?: StringFilter<"Console"> | string
-    storage?: StringFilter<"Console"> | string
-    cpu?: StringNullableFilter<"Console"> | string | null
-    gpu?: StringNullableFilter<"Console"> | string | null
-    ram?: StringNullableFilter<"Console"> | string | null
-    resolution?: StringNullableFilter<"Console"> | string | null
-    price?: DecimalFilter<"Console"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Console"> | Date | string
-    updatedAt?: DateTimeFilter<"Console"> | Date | string
-    categoryID?: IntFilter<"Console"> | number
-  }
-
-  export type GameUpsertWithWhereUniqueWithoutCategoryInput = {
-    where: GameWhereUniqueInput
-    update: XOR<GameUpdateWithoutCategoryInput, GameUncheckedUpdateWithoutCategoryInput>
-    create: XOR<GameCreateWithoutCategoryInput, GameUncheckedCreateWithoutCategoryInput>
-  }
-
-  export type GameUpdateWithWhereUniqueWithoutCategoryInput = {
-    where: GameWhereUniqueInput
-    data: XOR<GameUpdateWithoutCategoryInput, GameUncheckedUpdateWithoutCategoryInput>
-  }
-
-  export type GameUpdateManyWithWhereWithoutCategoryInput = {
-    where: GameScalarWhereInput
-    data: XOR<GameUpdateManyMutationInput, GameUncheckedUpdateManyWithoutCategoryInput>
-  }
-
-  export type GameScalarWhereInput = {
-    AND?: GameScalarWhereInput | GameScalarWhereInput[]
-    OR?: GameScalarWhereInput[]
-    NOT?: GameScalarWhereInput | GameScalarWhereInput[]
-    id?: IntFilter<"Game"> | number
-    name?: StringFilter<"Game"> | string
-    platform?: StringFilter<"Game"> | string
-    price?: DecimalFilter<"Game"> | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFilter<"Game"> | Date | string
-    updatedAt?: DateTimeFilter<"Game"> | Date | string
-    categoryID?: IntFilter<"Game"> | number
-  }
-
-  export type CategoryCreateWithoutConsolesInput = {
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    games?: GameCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryUncheckedCreateWithoutConsolesInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    games?: GameUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryCreateOrConnectWithoutConsolesInput = {
-    where: CategoryWhereUniqueInput
-    create: XOR<CategoryCreateWithoutConsolesInput, CategoryUncheckedCreateWithoutConsolesInput>
-  }
-
-  export type CartItemCreateWithoutConsoleInput = {
+  export type CartItemCreateWithoutProductInput = {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     user: UserCreateNestedOneWithoutCartItemsInput
-    game?: GameCreateNestedOneWithoutCartItemsInput
   }
 
-  export type CartItemUncheckedCreateWithoutConsoleInput = {
+  export type CartItemUncheckedCreateWithoutProductInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     userID: number
-    gameID?: number | null
   }
 
-  export type CartItemCreateOrConnectWithoutConsoleInput = {
+  export type CartItemCreateOrConnectWithoutProductInput = {
     where: CartItemWhereUniqueInput
-    create: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput>
+    create: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput>
   }
 
-  export type CartItemCreateManyConsoleInputEnvelope = {
-    data: CartItemCreateManyConsoleInput | CartItemCreateManyConsoleInput[]
+  export type CartItemCreateManyProductInputEnvelope = {
+    data: CartItemCreateManyProductInput | CartItemCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
-  export type OrderItemCreateWithoutConsoleInput = {
+  export type OrderItemCreateWithoutProductInput = {
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     order: OrderCreateNestedOneWithoutOrderItemsInput
-    game?: GameCreateNestedOneWithoutOrderItemsInput
   }
 
-  export type OrderItemUncheckedCreateWithoutConsoleInput = {
+  export type OrderItemUncheckedCreateWithoutProductInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     orderID: number
-    gameID?: number | null
   }
 
-  export type OrderItemCreateOrConnectWithoutConsoleInput = {
+  export type OrderItemCreateOrConnectWithoutProductInput = {
     where: OrderItemWhereUniqueInput
-    create: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput>
+    create: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput>
   }
 
-  export type OrderItemCreateManyConsoleInputEnvelope = {
-    data: OrderItemCreateManyConsoleInput | OrderItemCreateManyConsoleInput[]
+  export type OrderItemCreateManyProductInputEnvelope = {
+    data: OrderItemCreateManyProductInput | OrderItemCreateManyProductInput[]
     skipDuplicates?: boolean
   }
 
-  export type CategoryUpsertWithoutConsolesInput = {
-    update: XOR<CategoryUpdateWithoutConsolesInput, CategoryUncheckedUpdateWithoutConsolesInput>
-    create: XOR<CategoryCreateWithoutConsolesInput, CategoryUncheckedCreateWithoutConsolesInput>
+  export type CategoryUpsertWithoutProductsInput = {
+    update: XOR<CategoryUpdateWithoutProductsInput, CategoryUncheckedUpdateWithoutProductsInput>
+    create: XOR<CategoryCreateWithoutProductsInput, CategoryUncheckedCreateWithoutProductsInput>
     where?: CategoryWhereInput
   }
 
-  export type CategoryUpdateToOneWithWhereWithoutConsolesInput = {
+  export type CategoryUpdateToOneWithWhereWithoutProductsInput = {
     where?: CategoryWhereInput
-    data: XOR<CategoryUpdateWithoutConsolesInput, CategoryUncheckedUpdateWithoutConsolesInput>
+    data: XOR<CategoryUpdateWithoutProductsInput, CategoryUncheckedUpdateWithoutProductsInput>
   }
 
-  export type CategoryUpdateWithoutConsolesInput = {
+  export type CategoryUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    games?: GameUpdateManyWithoutCategoryNestedInput
   }
 
-  export type CategoryUncheckedUpdateWithoutConsolesInput = {
+  export type CategoryUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    games?: GameUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
-  export type CartItemUpsertWithWhereUniqueWithoutConsoleInput = {
-    where: CartItemWhereUniqueInput
-    update: XOR<CartItemUpdateWithoutConsoleInput, CartItemUncheckedUpdateWithoutConsoleInput>
-    create: XOR<CartItemCreateWithoutConsoleInput, CartItemUncheckedCreateWithoutConsoleInput>
+  export type ConsoleUpsertWithoutProductInput = {
+    update: XOR<ConsoleUpdateWithoutProductInput, ConsoleUncheckedUpdateWithoutProductInput>
+    create: XOR<ConsoleCreateWithoutProductInput, ConsoleUncheckedCreateWithoutProductInput>
+    where?: ConsoleWhereInput
   }
 
-  export type CartItemUpdateWithWhereUniqueWithoutConsoleInput = {
-    where: CartItemWhereUniqueInput
-    data: XOR<CartItemUpdateWithoutConsoleInput, CartItemUncheckedUpdateWithoutConsoleInput>
+  export type ConsoleUpdateToOneWithWhereWithoutProductInput = {
+    where?: ConsoleWhereInput
+    data: XOR<ConsoleUpdateWithoutProductInput, ConsoleUncheckedUpdateWithoutProductInput>
   }
 
-  export type CartItemUpdateManyWithWhereWithoutConsoleInput = {
-    where: CartItemScalarWhereInput
-    data: XOR<CartItemUpdateManyMutationInput, CartItemUncheckedUpdateManyWithoutConsoleInput>
+  export type ConsoleUpdateWithoutProductInput = {
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    storage?: StringFieldUpdateOperationsInput | string
+    cpu?: NullableStringFieldUpdateOperationsInput | string | null
+    gpu?: NullableStringFieldUpdateOperationsInput | string | null
+    ram?: NullableStringFieldUpdateOperationsInput | string | null
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type OrderItemUpsertWithWhereUniqueWithoutConsoleInput = {
-    where: OrderItemWhereUniqueInput
-    update: XOR<OrderItemUpdateWithoutConsoleInput, OrderItemUncheckedUpdateWithoutConsoleInput>
-    create: XOR<OrderItemCreateWithoutConsoleInput, OrderItemUncheckedCreateWithoutConsoleInput>
+  export type ConsoleUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    brand?: StringFieldUpdateOperationsInput | string
+    model?: StringFieldUpdateOperationsInput | string
+    storage?: StringFieldUpdateOperationsInput | string
+    cpu?: NullableStringFieldUpdateOperationsInput | string | null
+    gpu?: NullableStringFieldUpdateOperationsInput | string | null
+    ram?: NullableStringFieldUpdateOperationsInput | string | null
+    resolution?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type OrderItemUpdateWithWhereUniqueWithoutConsoleInput = {
-    where: OrderItemWhereUniqueInput
-    data: XOR<OrderItemUpdateWithoutConsoleInput, OrderItemUncheckedUpdateWithoutConsoleInput>
+  export type GameUpsertWithoutProductInput = {
+    update: XOR<GameUpdateWithoutProductInput, GameUncheckedUpdateWithoutProductInput>
+    create: XOR<GameCreateWithoutProductInput, GameUncheckedCreateWithoutProductInput>
+    where?: GameWhereInput
   }
 
-  export type OrderItemUpdateManyWithWhereWithoutConsoleInput = {
-    where: OrderItemScalarWhereInput
-    data: XOR<OrderItemUpdateManyMutationInput, OrderItemUncheckedUpdateManyWithoutConsoleInput>
+  export type GameUpdateToOneWithWhereWithoutProductInput = {
+    where?: GameWhereInput
+    data: XOR<GameUpdateWithoutProductInput, GameUncheckedUpdateWithoutProductInput>
   }
 
-  export type CategoryCreateWithoutGamesInput = {
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    consoles?: ConsoleCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryUncheckedCreateWithoutGamesInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    consoles?: ConsoleUncheckedCreateNestedManyWithoutCategoryInput
-  }
-
-  export type CategoryCreateOrConnectWithoutGamesInput = {
-    where: CategoryWhereUniqueInput
-    create: XOR<CategoryCreateWithoutGamesInput, CategoryUncheckedCreateWithoutGamesInput>
-  }
-
-  export type CartItemCreateWithoutGameInput = {
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    user: UserCreateNestedOneWithoutCartItemsInput
-    console?: ConsoleCreateNestedOneWithoutCartItemsInput
-  }
-
-  export type CartItemUncheckedCreateWithoutGameInput = {
-    id?: number
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    userID: number
-    consoleID?: number | null
-  }
-
-  export type CartItemCreateOrConnectWithoutGameInput = {
-    where: CartItemWhereUniqueInput
-    create: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput>
-  }
-
-  export type CartItemCreateManyGameInputEnvelope = {
-    data: CartItemCreateManyGameInput | CartItemCreateManyGameInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type OrderItemCreateWithoutGameInput = {
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    order: OrderCreateNestedOneWithoutOrderItemsInput
-    console?: ConsoleCreateNestedOneWithoutOrderItemsInput
-  }
-
-  export type OrderItemUncheckedCreateWithoutGameInput = {
-    id?: number
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    orderID: number
-    consoleID?: number | null
-  }
-
-  export type OrderItemCreateOrConnectWithoutGameInput = {
-    where: OrderItemWhereUniqueInput
-    create: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput>
-  }
-
-  export type OrderItemCreateManyGameInputEnvelope = {
-    data: OrderItemCreateManyGameInput | OrderItemCreateManyGameInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type CategoryUpsertWithoutGamesInput = {
-    update: XOR<CategoryUpdateWithoutGamesInput, CategoryUncheckedUpdateWithoutGamesInput>
-    create: XOR<CategoryCreateWithoutGamesInput, CategoryUncheckedCreateWithoutGamesInput>
-    where?: CategoryWhereInput
-  }
-
-  export type CategoryUpdateToOneWithWhereWithoutGamesInput = {
-    where?: CategoryWhereInput
-    data: XOR<CategoryUpdateWithoutGamesInput, CategoryUncheckedUpdateWithoutGamesInput>
-  }
-
-  export type CategoryUpdateWithoutGamesInput = {
+  export type GameUpdateWithoutProductInput = {
     name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    consoles?: ConsoleUpdateManyWithoutCategoryNestedInput
+    description?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    genres?: StringFieldUpdateOperationsInput | string
   }
 
-  export type CategoryUncheckedUpdateWithoutGamesInput = {
+  export type GameUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    genres?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CartItemUpsertWithWhereUniqueWithoutProductInput = {
+    where: CartItemWhereUniqueInput
+    update: XOR<CartItemUpdateWithoutProductInput, CartItemUncheckedUpdateWithoutProductInput>
+    create: XOR<CartItemCreateWithoutProductInput, CartItemUncheckedCreateWithoutProductInput>
+  }
+
+  export type CartItemUpdateWithWhereUniqueWithoutProductInput = {
+    where: CartItemWhereUniqueInput
+    data: XOR<CartItemUpdateWithoutProductInput, CartItemUncheckedUpdateWithoutProductInput>
+  }
+
+  export type CartItemUpdateManyWithWhereWithoutProductInput = {
+    where: CartItemScalarWhereInput
+    data: XOR<CartItemUpdateManyMutationInput, CartItemUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type OrderItemUpsertWithWhereUniqueWithoutProductInput = {
+    where: OrderItemWhereUniqueInput
+    update: XOR<OrderItemUpdateWithoutProductInput, OrderItemUncheckedUpdateWithoutProductInput>
+    create: XOR<OrderItemCreateWithoutProductInput, OrderItemUncheckedCreateWithoutProductInput>
+  }
+
+  export type OrderItemUpdateWithWhereUniqueWithoutProductInput = {
+    where: OrderItemWhereUniqueInput
+    data: XOR<OrderItemUpdateWithoutProductInput, OrderItemUncheckedUpdateWithoutProductInput>
+  }
+
+  export type OrderItemUpdateManyWithWhereWithoutProductInput = {
+    where: OrderItemScalarWhereInput
+    data: XOR<OrderItemUpdateManyMutationInput, OrderItemUncheckedUpdateManyWithoutProductInput>
+  }
+
+  export type ProductCreateWithoutConsoleInput = {
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutProductsInput
+    game?: GameCreateNestedOneWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductUncheckedCreateWithoutConsoleInput = {
+    id?: number
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categoryID: number
+    game?: GameUncheckedCreateNestedOneWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
+  }
+
+  export type ProductCreateOrConnectWithoutConsoleInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutConsoleInput, ProductUncheckedCreateWithoutConsoleInput>
+  }
+
+  export type ProductUpsertWithoutConsoleInput = {
+    update: XOR<ProductUpdateWithoutConsoleInput, ProductUncheckedUpdateWithoutConsoleInput>
+    create: XOR<ProductCreateWithoutConsoleInput, ProductUncheckedCreateWithoutConsoleInput>
+    where?: ProductWhereInput
+  }
+
+  export type ProductUpdateToOneWithWhereWithoutConsoleInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutConsoleInput, ProductUncheckedUpdateWithoutConsoleInput>
+  }
+
+  export type ProductUpdateWithoutConsoleInput = {
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    consoles?: ConsoleUncheckedUpdateManyWithoutCategoryNestedInput
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    game?: GameUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
   }
 
-  export type CartItemUpsertWithWhereUniqueWithoutGameInput = {
-    where: CartItemWhereUniqueInput
-    update: XOR<CartItemUpdateWithoutGameInput, CartItemUncheckedUpdateWithoutGameInput>
-    create: XOR<CartItemCreateWithoutGameInput, CartItemUncheckedCreateWithoutGameInput>
+  export type ProductUncheckedUpdateWithoutConsoleInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryID?: IntFieldUpdateOperationsInput | number
+    game?: GameUncheckedUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type CartItemUpdateWithWhereUniqueWithoutGameInput = {
-    where: CartItemWhereUniqueInput
-    data: XOR<CartItemUpdateWithoutGameInput, CartItemUncheckedUpdateWithoutGameInput>
+  export type ProductCreateWithoutGameInput = {
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: CategoryCreateNestedOneWithoutProductsInput
+    console?: ConsoleCreateNestedOneWithoutProductInput
+    cartItems?: CartItemCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemCreateNestedManyWithoutProductInput
   }
 
-  export type CartItemUpdateManyWithWhereWithoutGameInput = {
-    where: CartItemScalarWhereInput
-    data: XOR<CartItemUpdateManyMutationInput, CartItemUncheckedUpdateManyWithoutGameInput>
+  export type ProductUncheckedCreateWithoutGameInput = {
+    id?: number
+    price: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    categoryID: number
+    console?: ConsoleUncheckedCreateNestedOneWithoutProductInput
+    cartItems?: CartItemUncheckedCreateNestedManyWithoutProductInput
+    orderItems?: OrderItemUncheckedCreateNestedManyWithoutProductInput
   }
 
-  export type OrderItemUpsertWithWhereUniqueWithoutGameInput = {
-    where: OrderItemWhereUniqueInput
-    update: XOR<OrderItemUpdateWithoutGameInput, OrderItemUncheckedUpdateWithoutGameInput>
-    create: XOR<OrderItemCreateWithoutGameInput, OrderItemUncheckedCreateWithoutGameInput>
+  export type ProductCreateOrConnectWithoutGameInput = {
+    where: ProductWhereUniqueInput
+    create: XOR<ProductCreateWithoutGameInput, ProductUncheckedCreateWithoutGameInput>
   }
 
-  export type OrderItemUpdateWithWhereUniqueWithoutGameInput = {
-    where: OrderItemWhereUniqueInput
-    data: XOR<OrderItemUpdateWithoutGameInput, OrderItemUncheckedUpdateWithoutGameInput>
+  export type ProductUpsertWithoutGameInput = {
+    update: XOR<ProductUpdateWithoutGameInput, ProductUncheckedUpdateWithoutGameInput>
+    create: XOR<ProductCreateWithoutGameInput, ProductUncheckedCreateWithoutGameInput>
+    where?: ProductWhereInput
   }
 
-  export type OrderItemUpdateManyWithWhereWithoutGameInput = {
-    where: OrderItemScalarWhereInput
-    data: XOR<OrderItemUpdateManyMutationInput, OrderItemUncheckedUpdateManyWithoutGameInput>
+  export type ProductUpdateToOneWithWhereWithoutGameInput = {
+    where?: ProductWhereInput
+    data: XOR<ProductUpdateWithoutGameInput, ProductUncheckedUpdateWithoutGameInput>
+  }
+
+  export type ProductUpdateWithoutGameInput = {
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoryUpdateOneRequiredWithoutProductsNestedInput
+    console?: ConsoleUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
+  }
+
+  export type ProductUncheckedUpdateWithoutGameInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categoryID?: IntFieldUpdateOperationsInput | number
+    console?: ConsoleUncheckedUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type OrderCreateManyUserInput = {
@@ -13507,8 +14158,7 @@ export namespace Prisma {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type OrderUpdateWithoutUserInput = {
@@ -13542,277 +14192,137 @@ export namespace Prisma {
   export type CartItemUpdateWithoutUserInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    console?: ConsoleUpdateOneWithoutCartItemsNestedInput
-    game?: GameUpdateOneWithoutCartItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutCartItemsNestedInput
   }
 
   export type CartItemUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type CartItemUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemCreateManyOrderInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
-    consoleID?: number | null
-    gameID?: number | null
+    productID: number
   }
 
   export type OrderItemUpdateWithoutOrderInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    console?: ConsoleUpdateOneWithoutOrderItemsNestedInput
-    game?: GameUpdateOneWithoutOrderItemsNestedInput
+    product?: ProductUpdateOneRequiredWithoutOrderItemsNestedInput
   }
 
   export type OrderItemUncheckedUpdateWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
   export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
+    productID?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ConsoleCreateManyCategoryInput = {
+  export type ProductCreateManyCategoryInput = {
     id?: number
-    brand: string
-    model: string
-    storage: string
-    cpu?: string | null
-    gpu?: string | null
-    ram?: string | null
-    resolution?: string | null
     price: Decimal | DecimalJsLike | number | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type GameCreateManyCategoryInput = {
-    id?: number
-    name: string
-    platform: string
-    price: Decimal | DecimalJsLike | number | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ConsoleUpdateWithoutCategoryInput = {
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
+  export type ProductUpdateWithoutCategoryInput = {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cartItems?: CartItemUpdateManyWithoutConsoleNestedInput
-    orderItems?: OrderItemUpdateManyWithoutConsoleNestedInput
+    console?: ConsoleUpdateOneWithoutProductNestedInput
+    game?: GameUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUpdateManyWithoutProductNestedInput
   }
 
-  export type ConsoleUncheckedUpdateWithoutCategoryInput = {
+  export type ProductUncheckedUpdateWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cartItems?: CartItemUncheckedUpdateManyWithoutConsoleNestedInput
-    orderItems?: OrderItemUncheckedUpdateManyWithoutConsoleNestedInput
+    console?: ConsoleUncheckedUpdateOneWithoutProductNestedInput
+    game?: GameUncheckedUpdateOneWithoutProductNestedInput
+    cartItems?: CartItemUncheckedUpdateManyWithoutProductNestedInput
+    orderItems?: OrderItemUncheckedUpdateManyWithoutProductNestedInput
   }
 
-  export type ConsoleUncheckedUpdateManyWithoutCategoryInput = {
+  export type ProductUncheckedUpdateManyWithoutCategoryInput = {
     id?: IntFieldUpdateOperationsInput | number
-    brand?: StringFieldUpdateOperationsInput | string
-    model?: StringFieldUpdateOperationsInput | string
-    storage?: StringFieldUpdateOperationsInput | string
-    cpu?: NullableStringFieldUpdateOperationsInput | string | null
-    gpu?: NullableStringFieldUpdateOperationsInput | string | null
-    ram?: NullableStringFieldUpdateOperationsInput | string | null
-    resolution?: NullableStringFieldUpdateOperationsInput | string | null
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type GameUpdateWithoutCategoryInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cartItems?: CartItemUpdateManyWithoutGameNestedInput
-    orderItems?: OrderItemUpdateManyWithoutGameNestedInput
-  }
-
-  export type GameUncheckedUpdateWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    cartItems?: CartItemUncheckedUpdateManyWithoutGameNestedInput
-    orderItems?: OrderItemUncheckedUpdateManyWithoutGameNestedInput
-  }
-
-  export type GameUncheckedUpdateManyWithoutCategoryInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    platform?: StringFieldUpdateOperationsInput | string
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type CartItemCreateManyConsoleInput = {
+  export type CartItemCreateManyProductInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     userID: number
-    gameID?: number | null
   }
 
-  export type OrderItemCreateManyConsoleInput = {
+  export type OrderItemCreateManyProductInput = {
     id?: number
     quantity?: number
     price: Decimal | DecimalJsLike | number | string
     orderID: number
-    gameID?: number | null
   }
 
-  export type CartItemUpdateWithoutConsoleInput = {
+  export type CartItemUpdateWithoutProductInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     user?: UserUpdateOneRequiredWithoutCartItemsNestedInput
-    game?: GameUpdateOneWithoutCartItemsNestedInput
   }
 
-  export type CartItemUncheckedUpdateWithoutConsoleInput = {
+  export type CartItemUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     userID?: IntFieldUpdateOperationsInput | number
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type CartItemUncheckedUpdateManyWithoutConsoleInput = {
+  export type CartItemUncheckedUpdateManyWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     userID?: IntFieldUpdateOperationsInput | number
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type OrderItemUpdateWithoutConsoleInput = {
+  export type OrderItemUpdateWithoutProductInput = {
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     order?: OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-    game?: GameUpdateOneWithoutOrderItemsNestedInput
   }
 
-  export type OrderItemUncheckedUpdateWithoutConsoleInput = {
+  export type OrderItemUncheckedUpdateWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderID?: IntFieldUpdateOperationsInput | number
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type OrderItemUncheckedUpdateManyWithoutConsoleInput = {
+  export type OrderItemUncheckedUpdateManyWithoutProductInput = {
     id?: IntFieldUpdateOperationsInput | number
     quantity?: IntFieldUpdateOperationsInput | number
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     orderID?: IntFieldUpdateOperationsInput | number
-    gameID?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type CartItemCreateManyGameInput = {
-    id?: number
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    userID: number
-    consoleID?: number | null
-  }
-
-  export type OrderItemCreateManyGameInput = {
-    id?: number
-    quantity?: number
-    price: Decimal | DecimalJsLike | number | string
-    orderID: number
-    consoleID?: number | null
-  }
-
-  export type CartItemUpdateWithoutGameInput = {
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    user?: UserUpdateOneRequiredWithoutCartItemsNestedInput
-    console?: ConsoleUpdateOneWithoutCartItemsNestedInput
-  }
-
-  export type CartItemUncheckedUpdateWithoutGameInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    userID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type CartItemUncheckedUpdateManyWithoutGameInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    userID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type OrderItemUpdateWithoutGameInput = {
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    order?: OrderUpdateOneRequiredWithoutOrderItemsNestedInput
-    console?: ConsoleUpdateOneWithoutOrderItemsNestedInput
-  }
-
-  export type OrderItemUncheckedUpdateWithoutGameInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    orderID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type OrderItemUncheckedUpdateManyWithoutGameInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    quantity?: IntFieldUpdateOperationsInput | number
-    price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
-    orderID?: IntFieldUpdateOperationsInput | number
-    consoleID?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
 

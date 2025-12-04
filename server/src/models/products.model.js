@@ -10,6 +10,12 @@ async function getAllRecords(model) {
     return await prisma[model].findMany({});
 }
 
+async function getOneRecord(model,id) {
+    return await prisma[model].findUnique({
+        where: {id}
+    });
+};
+
 async function saveRecord(model,newRecord) {
     return await prisma[model].create({data: newRecord});
 }
@@ -59,6 +65,7 @@ async function filterByPrice(model,minPrice,maxPrice) {
 module.exports = {
     modelFields,
     getAllRecords,
+    getOneRecord,
     saveRecord,
     removeRecord,
     updateRecord,

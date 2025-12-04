@@ -146,8 +146,7 @@ exports.Prisma.CartItemScalarFieldEnum = {
   quantity: 'quantity',
   price: 'price',
   userID: 'userID',
-  consoleID: 'consoleID',
-  gameID: 'gameID'
+  productID: 'productID'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -155,8 +154,7 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   quantity: 'quantity',
   price: 'price',
   orderID: 'orderID',
-  consoleID: 'consoleID',
-  gameID: 'gameID'
+  productID: 'productID'
 };
 
 exports.Prisma.CategoryScalarFieldEnum = {
@@ -164,6 +162,14 @@ exports.Prisma.CategoryScalarFieldEnum = {
   name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ProductScalarFieldEnum = {
+  id: 'id',
+  price: 'price',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryID: 'categoryID'
 };
 
 exports.Prisma.ConsoleScalarFieldEnum = {
@@ -175,20 +181,16 @@ exports.Prisma.ConsoleScalarFieldEnum = {
   gpu: 'gpu',
   ram: 'ram',
   resolution: 'resolution',
-  price: 'price',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  categoryID: 'categoryID'
+  productID: 'productID'
 };
 
 exports.Prisma.GameScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   platform: 'platform',
-  price: 'price',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  categoryID: 'categoryID'
+  genres: 'genres',
+  productID: 'productID'
 };
 
 exports.Prisma.SortOrder = {
@@ -222,6 +224,7 @@ exports.Prisma.ModelName = {
   CartItem: 'CartItem',
   OrderItem: 'OrderItem',
   Category: 'Category',
+  Product: 'Product',
   Console: 'Console',
   Game: 'Game'
 };

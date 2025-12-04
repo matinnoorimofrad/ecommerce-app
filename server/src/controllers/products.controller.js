@@ -1,6 +1,7 @@
 const {
     modelFields,
     getAllRecords,
+    getOneRecord,
     saveRecord,
     removeRecord,
     updateRecord,
@@ -19,6 +20,16 @@ async function showAllRecords(req,res) {
         return res.status(500).json({error: err.message});
     }
 };
+
+async function showOneRecord(req,res) {
+    const model = req.baseUrl.replace('/','');
+    const id = req.params.id;
+    try{
+        return res.status(200).json(await getOneRecord(model,id));
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+}
 
 async function addNewRecord(req,res) {
     const input = req.body;
@@ -96,6 +107,7 @@ async function priceFilter(req,res) {
 
 module.exports = {
     showAllRecords,
+    showOneRecord,
     addNewRecord,
     deleteRecord,
     updateOneRecord,

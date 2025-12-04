@@ -1,5 +1,6 @@
 const {
     showAllRecords,
+    showOneRecord,
     addNewRecord,
     deleteRecord,
     updateOneRecord,
