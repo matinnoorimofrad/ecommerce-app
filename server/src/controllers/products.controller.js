@@ -1,77 +1,117 @@
 const {
     modelFields,
-    getAllRecords,
-    getOneRecord,
+    getAllProducts,
+    getOneProduct,
+    getOneTypeOfProduct,
+    getAllCategories,
     saveRecord,
     removeRecord,
     updateRecord,
-    addProduct,
     filterByBrand,
     filterByPlatform,
     filterByPrice,
 } = require('../models/products.model');
 
 
-async function showAllRecords(req,res) {
+async function showAllProducts(req,res) {
     try{
-        const model = req.baseUrl.replace('/','');
-        return res.status(200).json(await getAllRecords(model));
+        return res.status(200).json(await getAllProducts());
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
 };
 
-async function showOneRecord(req,res) {
-    const model = req.baseUrl.replace('/','');
+async function showOneProduct(req,res) {
     const id = req.params.id;
     try{
-        return res.status(200).json(await getOneRecord(model,id));
+        return res.status(200).json(await getOneProduct(id));
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
-
-async function addNewRecord(req,res) {
-    const input = req.body;
-    const model = req.baseUrl.replace('/','');
-    const fields = modelFields[model];
-    for (let field of fields) {
-        if(!input[field]) {
-            return res.status(422).json({error: `${field} is required`});
-        }
-    }
-    if(model==="category") {
-        try {
-            return res.status(201).json(await saveRecord(model,input));
-        } catch(err) {
-            return res.status(500).json({error: err.message});
-        }        
-    } else {
-        try {
-            return res.status(201).json(await addProduct(model,input));
-        } catch(err) {
-            return res.status(500).json({error: err.message});
-        }        
-    }    
 };
 
-async function deleteRecord(req,res) {
+async function showOneTypeOfProduct(req,res) {
+    const model = req.params.model;
+    try {
+        return res.status(200).json(await getOneTypeOfProduct(model))
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+};
+
+async function addNewProduct(req,res) {
+    const newProduct = req.body;
+    const model = req.params.model;
+    const fields = modelFields[model];
+    for (let field of fields) {
+        if (!newProduct.model[field]) {
+            return res.status(422).json({error: `${field} is require`})
+        }
+    }
+    if (!newProduct.price) {
+        return res.status(422).json({error: "price is require"})
+    }
+    try {
+        return res.status(201).json(await saveRecord("product",newProduct));
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+};
+
+async function removeProduct(req,res) {
+    const id = req.params.id;
+    try {
+        return res.status(200).json(await removeRecord("product",id));
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+};
+
+async function updateProduct(req,res) {
     const id = parseInt(req.params.id);
-    const model = req.baseUrl.replace('/','');
+    const updatedRecord = req.body;
+    try {
+        return res.status(200).json(await updateRecord("product",id,updatedRecord));
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+};
+
+async function showAllCategories(req,res) {
+    try {
+        return res.status(200).json(await getAllCategories());
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+};
+
+async function addNewCategory(req,res) {
+    const newCategory = req.body;
+    if (!newCategory.name) {
+        return res.status(422).json({error: "category name is require"});
+    }
+    try {
+        return res.status(201).json(await saveRecord("category",newCategory));
+    } catch(err) {
+        return res.status(500).json({error: err.message});
+    }
+    
+};
+
+async function removeCategory(req,res) {
+    const id = parseInt(req.params.id);
     try{
-        return res.status(200).json(await removeRecord(model,id));
+        return res.status(200).json(await removeRecord("category",id));
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
 }
 
-async function updateOneRecord(req,res) {
-    const model = req.baseUrl.replace('/','');
+async function updateCategory(req,res) {
     const id = parseInt(req.params.id);
     const updatedRecord = req.body;
-
     try{
-        return res.status(200).json(await updateRecord(model,id,updatedRecord));
+        return res.status(200).json(await updateRecord("category",id,updatedRecord));
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
@@ -108,7 +148,8 @@ async function priceFilter(req,res) {
 module.exports = {
     showAllRecords,
     showOneRecord,
-    addNewRecord,
+    addNewProduct,
+    addNewCategory,
     deleteRecord,
     updateOneRecord,
     brandFilter,
