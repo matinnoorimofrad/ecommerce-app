@@ -22,7 +22,7 @@ async function showAllProducts(req,res) {
 };
 
 async function showOneProduct(req,res) {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     try{
         return res.status(200).json(await getOneProduct(id));
     } catch(err) {
@@ -59,7 +59,7 @@ async function addNewProduct(req,res) {
 };
 
 async function removeProduct(req,res) {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     try {
         return res.status(200).json(await removeRecord("product",id));
     } catch(err) {
@@ -105,7 +105,7 @@ async function removeCategory(req,res) {
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
+};
 
 async function updateCategory(req,res) {
     const id = parseInt(req.params.id);
@@ -115,7 +115,7 @@ async function updateCategory(req,res) {
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
+};
 
 async function brandFilter(req,res) {
     const brand = req.body.brand;
@@ -124,7 +124,7 @@ async function brandFilter(req,res) {
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
+};
 
 async function platformFilter(req,res) {
     const platform = req.body.platform;
@@ -133,26 +133,39 @@ async function platformFilter(req,res) {
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
+};
 
 async function priceFilter(req,res) {
     const {minPrice, maxPrice}= req.body;
-    const model = req.baseUrl.replace('/','');
+    const model = req.params.model;
     try {
         return res.status(200).json(await filterByPrice(model,minPrice,maxPrice));
     } catch(err) {
         return res.status(500).json({error: err.message});
     }
-}
+};
+
+// async function gamePriceFilter(req,res) {
+//     const {minPrice, maxPrice}= req.body;
+//     try {
+//         return res.status(200).json(await filterByPrice("game",minPrice,maxPrice));
+//     } catch(err) {
+//         return res.status(500).json({error: err.message});
+//     }
+// };
 
 module.exports = {
-    showAllRecords,
-    showOneRecord,
+    showAllProducts,
+    showOneProduct,
+    showOneTypeOfProduct,
     addNewProduct,
+    removeProduct,
+    updateProduct,
+    showAllCategories,
     addNewCategory,
-    deleteRecord,
-    updateOneRecord,
+    removeCategory,
+    updateCategory,
     brandFilter,
     platformFilter,
-    priceFilter,
+    priceFilter
 };

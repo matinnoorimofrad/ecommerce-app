@@ -2,8 +2,7 @@ const express = require('express');
 
 const {
     register,
-    login,
-    validateToken,    
+    login,   
 } = require('../controllers/users.controller');
 
 const userRouter = express.Router();

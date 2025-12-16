@@ -1,13 +1,17 @@
 const {
-    showAllRecords,
-    showOneRecord,
+    showAllProducts,
+    showOneProduct,
+    showOneTypeOfProduct,
     addNewProduct,
+    removeProduct,
+    updateProduct,
+    showAllCategories,
     addNewCategory,
-    deleteRecord,
-    updateOneRecord,
+    removeCategory,
+    updateCategory,
     brandFilter,
     platformFilter,
-    priceFilter,
+    priceFilter
 } = require('../controllers/products.controller');
 
 const express = require('express');
@@ -22,17 +26,20 @@ categoryRouter.use(validateToken);
 productRouter.use(validateToken);
 
 
-categoryRouter.get('/all',showAllRecords);
-categoryRouter.post('/add',addNewRecord);
-categoryRouter.delete('/remove/:id',deleteRecord);
-categoryRouter.patch('/update/:id',updateOneRecord);
+categoryRouter.get('/all',showAllCategories);
+categoryRouter.post('/add',addNewCategory);
+categoryRouter.delete('/remove/:id',removeCategory);
+categoryRouter.patch('/update/:id',updateCategory);
 
-productRouter.get(':model/all',showAllRecords);
-productRouter.post('/add',addNewRecord);
+productRouter.get('/all',showAllProducts);
+productRouter.get('/:id',showOneProduct);
+productRouter.get(':model/all',showOneTypeOfProduct);
+productRouter.post(':model/add',addNewProduct);
 productRouter.post('console/brandFilter',brandFilter);
+productRouter.post('game/platformFilter',platformFilter);
 productRouter.post(':model/priceFilter',priceFilter);
-productRouter.delete('/remove/:id',deleteRecord);
-productRouter.patch('/update/:id',updateOneRecord);
+productRouter.delete('/remove/:id',removeProduct);
+productRouter.patch('/update/:id',updateProduct);
 
 
 
