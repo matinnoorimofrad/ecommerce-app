@@ -11,6 +11,7 @@ const userRouter = require('./routers/users.router');
 
 const {
     cartRouter,
+    orderRouter
 } = require('./routers/cart_and_orders.router');
 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/products',productRouter,);
 
 
 app.use('/cart',cartRouter);
+app.use('/order',orderRouter);
 
 app.use('/user',userRouter);
 
